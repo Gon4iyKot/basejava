@@ -1,14 +1,11 @@
-import com.sun.deploy.util.ArrayUtil;
-
-import java.lang.reflect.Array;
 import java.util.Arrays;
 
 /**
  * Array based storage for Resumes
  */
 public class ArrayStorage {
-    Resume[] storage = new Resume[10000];
-    int counter = 0;
+    private Resume[] storage = new Resume[10000];
+    private int counter = 0;
 
     void clear() {
         storage = new Resume[10000];
@@ -49,20 +46,19 @@ public class ArrayStorage {
      * @return array, contains only Resumes in storage (without null)
      */
     Resume[] getAll() {
-        Resume[] allResume = Arrays.copyOfRange(storage, 0, counter);
-        return allResume;
+        return Arrays.copyOfRange(storage, 0, counter);
     }
 
     int size() {
         return counter;
     }
 
-    public Resume[] ShityShifter(Resume[] r) {
+    private Resume[] ShityShifter(Resume[] r) {
         int mas=0;
         Resume [] fin = new Resume[r.length];
-        for (int wow=0; wow<r.length;wow++){
-            if (r[wow]!=null) {
-                fin[mas]=r[wow];
+        for (Resume aR : r) {
+            if (aR != null) {
+                fin[mas] = aR;
                 mas++;
             }
         }

@@ -18,18 +18,17 @@ public class ArrayStorage {
     }
 
     Resume get(String uuid) {
-        Resume fin = null;
         for (int i = 0; i < counter; i++) {
             if (storage[i].uuid.equals(uuid))
-                fin = storage[i];
+                return storage[i];
         }
-        return fin;
+        return null;
     }
 
     void delete(String uuid) {
         for (int i = 0; i < counter; i++) {
             if (storage[i].uuid.equals(uuid)) {
-                System.arraycopy(Arrays.copyOfRange(storage, 0, storage.length), i + 1, storage, i, storage.length - i - 1);
+                System.arraycopy(storage, i + 1, storage, i, storage.length - i - 1);
                 counter--;
                 break;
             }
@@ -47,16 +46,4 @@ public class ArrayStorage {
         return counter;
     }
 
-    /* private Resume[] ShityShifter(Resume[] r) {
-        int mas = 0;
-        Resume[] fin = new Resume[r.length];
-        for (Resume aR : r) {
-            if (aR != null) {
-                fin[mas] = aR;
-                mas++;
-            }
-        }
-        return fin;
-    }
-    */
 }

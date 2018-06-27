@@ -17,7 +17,7 @@ public class ArrayStorage {
             storage[counter] = r;
             counter++;
         } else {
-            System.out.println("Резюме не существует, попробуйте в другой раз");
+            System.out.println("Резюме уже существует, попробуйте в другой раз");
         }
     }
 

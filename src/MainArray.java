@@ -12,7 +12,7 @@ public class MainArray {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         Resume r;
         while (true) {
-            System.out.print("Введите одну из команд - (list | save uuid | delete uuid | get uuid | clear | exit): ");
+            System.out.print("Введите одну из команд - (list | save uuid | delete uuid | update | get uuid | clear | exit): ");
             String[] params = reader.readLine().trim().toLowerCase().split(" ");
             if (params.length < 1 || params.length > 2) {
                 System.out.println("Неверная команда.");
@@ -44,6 +44,12 @@ public class MainArray {
                     break;
                 case "clear":
                     ARRAY_STORAGE.clear();
+                    printAll();
+                    break;
+                case "update":
+                    System.out.println("Добавьте немного обновлений");
+                    String uuid2 = reader.readLine();
+                    ARRAY_STORAGE.update(uuid, uuid2);
                     printAll();
                     break;
                 case "exit":

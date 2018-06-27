@@ -13,25 +13,38 @@ public class ArrayStorage {
     }
 
     void save(Resume r) {
-        storage[counter] = r;
-        counter++;
+        if (checker(r.uuid) == null) {
+            storage[counter] = r;
+            counter++;
+        } else {
+            System.out.println("Резюме не существует, попробуйте в другой раз");
+        }
+    }
+
+    void update(String uuid, String uuid2) {
+        if (checker(uuid) != null) {
+            storage[getId(uuid)] = new Resume(uuid2);
+        } else {
+            System.out.println("Резюме не существует, попробуйте в другой раз");
+        }
+
     }
 
     Resume get(String uuid) {
-        for (int i = 0; i < counter; i++) {
-            if (storage[i].uuid.equals(uuid))
-                return storage[i];
+        if (checker(uuid) != null) {
+            return checker(uuid);
+        } else {
+            System.out.println("Резюме не существует, попробуйте в другой раз");
+            return null;
         }
-        return null;
     }
 
     void delete(String uuid) {
-        for (int i = 0; i < counter; i++) {
-            if (storage[i].uuid.equals(uuid)) {
-                System.arraycopy(storage, i + 1, storage, i, storage.length - i - 1);
-                counter--;
-                break;
-            }
+        if (checker(uuid) != null) {
+            System.arraycopy(storage, getId(uuid) + 1, storage, getId(uuid), storage.length - getId(uuid) - 1);
+            counter--;
+        } else {
+            System.out.println("Резюме не существует, попробуйте в другой раз");
         }
     }
 
@@ -44,6 +57,24 @@ public class ArrayStorage {
 
     int size() {
         return counter;
+    }
+
+    private Resume checker(String id) {
+        for (int i = 0; i < counter; i++) {
+            if (storage[i].uuid.equals(id)) {
+                return storage[i];
+            }
+        }
+        return null;
+    }
+
+    private Integer getId(String id) {
+        for (int i = 0; i < counter; i++) {
+            if (storage[i].uuid.equals(id)) {
+                return i;
+            }
+        }
+        return null;
     }
 
 }

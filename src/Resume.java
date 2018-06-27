@@ -4,8 +4,7 @@ import java.util.Comparator;
  * com.urise.webapp.model.Resume class
  */
 public class Resume implements Comparator<Resume> {
-    public Resume(String a)
-    {
+    public Resume(String a) {
         uuid = a;
     }
 
@@ -20,7 +19,8 @@ public class Resume implements Comparator<Resume> {
     public int compare(Resume o, Resume o2) {
         return o2.uuid.compareTo(o.uuid);
     }
-      @Override
+
+    @Override
     public String toString() {
         return uuid;
     }

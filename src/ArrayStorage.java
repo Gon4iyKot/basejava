@@ -8,13 +8,13 @@ public class ArrayStorage {
     private int counter = 0;
 
     void clear() {
-        storage = new Resume[10000];
+        Arrays.fill(storage, 0, counter - 1, null);
         counter = 0;
     }
 
-    void save(Resume r) {
-        if (checker(r.uuid) == null) {
-            storage[counter] = r;
+    void save(Resume resume) {
+        if (getId(resume.uuid) == null) {
+            storage[counter] = resume;
             counter++;
         } else {
             System.out.println("Резюме уже существует, попробуйте в другой раз");
@@ -22,7 +22,7 @@ public class ArrayStorage {
     }
 
     void update(String uuid, String uuid2) {
-        if (checker(uuid) != null) {
+        if (getId(uuid) != null) {
             storage[getId(uuid)] = new Resume(uuid2);
         } else {
             System.out.println("Резюме не существует, попробуйте в другой раз");
@@ -31,8 +31,8 @@ public class ArrayStorage {
     }
 
     Resume get(String uuid) {
-        if (checker(uuid) != null) {
-            return checker(uuid);
+        if (getId(uuid) != null) {
+            return storage[getId(uuid)];
         } else {
             System.out.println("Резюме не существует, попробуйте в другой раз");
             return null;
@@ -40,8 +40,8 @@ public class ArrayStorage {
     }
 
     void delete(String uuid) {
-        if (checker(uuid) != null) {
-            System.arraycopy(storage, getId(uuid) + 1, storage, getId(uuid), storage.length - getId(uuid) - 1);
+        if (getId(uuid) != null) {
+            storage[getId(uuid)] = storage[counter - 1];
             counter--;
         } else {
             System.out.println("Резюме не существует, попробуйте в другой раз");
@@ -57,15 +57,6 @@ public class ArrayStorage {
 
     int size() {
         return counter;
-    }
-
-    private Resume checker(String id) {
-        for (int i = 0; i < counter; i++) {
-            if (storage[i].uuid.equals(id)) {
-                return storage[i];
-            }
-        }
-        return null;
     }
 
     private Integer getId(String id) {

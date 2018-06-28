@@ -1,11 +1,9 @@
-import java.util.Comparator;
-
 /**
  * com.urise.webapp.model.Resume class
  */
-public class Resume implements Comparator<Resume> {
-    public Resume(String a) {
-        uuid = a;
+public class Resume {
+    public Resume(String uuid) {
+        this.uuid = uuid;
     }
 
     // Unique identifier
@@ -13,11 +11,6 @@ public class Resume implements Comparator<Resume> {
 
     public Resume() {
 
-    }
-
-    @Override
-    public int compare(Resume o, Resume o2) {
-        return o2.uuid.compareTo(o.uuid);
     }
 
     @Override

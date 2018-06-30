@@ -9,14 +9,12 @@ import java.util.Arrays;
  * Array based storage for Resumes
  */
 public class ArrayStorage {
-    private Resume[] storage = new Resume[10000];
+    private Resume[] storage = new Resume[3];
     private int counter = 0;
 
     public void clear() {
-        if (counter != 0) {
-            Arrays.fill(storage, 0, (counter - 1), null);
+            Arrays.fill(storage, 0, counter, null);
             counter = 0;
-        }
     }
 
     public void save(Resume resume) {

@@ -9,7 +9,7 @@ import java.util.Arrays;
  * Array based storage for Resumes
  */
 public class ArrayStorage {
-    private Resume[] storage = new Resume[3];
+    private Resume[] storage = new Resume[10000];
     private int counter = 0;
 
     public void clear() {
@@ -19,8 +19,12 @@ public class ArrayStorage {
 
     public void save(Resume resume) {
         if (getIndex(resume.getUuid()) == -1) {
-            storage[counter] = resume;
-            counter++;
+            if (counter!=storage.length) {
+                storage[counter] = resume;
+                counter++;
+            } else {
+                System.out.println("Слишком много резюме");
+            }
         } else {
             System.out.println("Резюме уже существует, попробуйте в другой раз");
         }
@@ -40,10 +44,9 @@ public class ArrayStorage {
         int index = getIndex(uuid);
         if (index != -1) {
             return storage[index];
-        } else {
+        }
             System.out.println("Резюме не существует, попробуйте в другой раз");
             return null;
-        }
     }
 
     public void delete(String uuid) {

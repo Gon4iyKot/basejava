@@ -13,13 +13,13 @@ public class ArrayStorage {
     private int counter = 0;
 
     public void clear() {
-            Arrays.fill(storage, 0, counter, null);
-            counter = 0;
+        Arrays.fill(storage, 0, counter, null);
+        counter = 0;
     }
 
     public void save(Resume resume) {
         if (getIndex(resume.getUuid()) == -1) {
-            if (counter!=storage.length) {
+            if (counter != storage.length) {
                 storage[counter] = resume;
                 counter++;
             } else {
@@ -45,8 +45,8 @@ public class ArrayStorage {
         if (index != -1) {
             return storage[index];
         }
-            System.out.println("Резюме не существует, попробуйте в другой раз");
-            return null;
+        System.out.println("Резюме не существует, попробуйте в другой раз");
+        return null;
     }
 
     public void delete(String uuid) {

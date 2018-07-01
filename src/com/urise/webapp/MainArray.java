@@ -51,9 +51,8 @@ public class MainArray {
                     printAll();
                     break;
                 case "update":
-                    System.out.println("Добавьте немного обновлений");
-                    String uuid2 = reader.readLine();
-                    ARRAY_STORAGE.update(uuid, uuid2);
+                    r = new Resume(uuid);
+                    ARRAY_STORAGE.update(r);
                     printAll();
                     break;
                 case "exit":

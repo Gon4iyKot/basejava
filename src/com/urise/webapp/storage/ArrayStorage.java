@@ -26,10 +26,10 @@ public class ArrayStorage {
         }
     }
 
-    public void update(String uuid, String uuid2) {
-        int index = getIndex(uuid);
+    public void update(Resume resume) {
+        int index = getIndex(resume.getUuid());
         if (index != -1) {
-            storage[index] = new Resume(uuid2);
+            storage[index] = resume;
         } else {
             System.out.println("Резюме не существует, попробуйте в другой раз");
         }

@@ -7,15 +7,10 @@ import java.util.Arrays;
 public class SortedArrayStorage extends AbstractArrayStorage {
 
     protected void insertEl(Resume resume) {
-        if (size == 0) {
-            storage[0] = resume;
-            size++;
-        } else {
             int insertIndex = binaryInsert(resume);
             System.arraycopy(storage, insertIndex, storage, insertIndex + 1, size - insertIndex);
             storage[insertIndex] = resume;
             size++;
-        }
     }
 
     protected int getIndex(String uuid) {

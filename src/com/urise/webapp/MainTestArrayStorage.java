@@ -17,9 +17,9 @@ public class MainTestArrayStorage {
         final Resume r5 = new Resume("uuid5");
 
         ARRAY_STORAGE.save(r1);
-        ARRAY_STORAGE.save(r2);
-        ARRAY_STORAGE.save(r3);
         ARRAY_STORAGE.save(r4);
+        ARRAY_STORAGE.save(r3);
+        ARRAY_STORAGE.save(r2);
         ARRAY_STORAGE.save(r5);
 
         System.out.println("Get r1: " + ARRAY_STORAGE.get(r1.getUuid()));
@@ -27,8 +27,8 @@ public class MainTestArrayStorage {
         System.out.println("Get dummy: " + ARRAY_STORAGE.get("dummy"));
 
         printAll();
-        System.out.print("удаление r1");
-        ARRAY_STORAGE.delete(r1.getUuid());
+        System.out.print("удаление r3");
+        ARRAY_STORAGE.delete(r3.getUuid());
         printAll();
         System.out.print("апдейт r2");
         ARRAY_STORAGE.update(r2);

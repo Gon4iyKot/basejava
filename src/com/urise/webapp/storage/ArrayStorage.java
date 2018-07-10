@@ -8,7 +8,7 @@ import com.urise.webapp.model.Resume;
  */
 public class ArrayStorage extends AbstractArrayStorage {
 
-    protected void insertEl(Resume resume) {
+    protected void insertResume(Resume resume) {
         storage[size] = resume;
     }
 
@@ -19,9 +19,5 @@ public class ArrayStorage extends AbstractArrayStorage {
             }
         }
         return -1;
-    }
-
-    protected int binaryInsert(Resume resume) {
-        return 0;
     }
 }

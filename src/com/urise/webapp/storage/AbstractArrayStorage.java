@@ -20,7 +20,7 @@ public abstract class AbstractArrayStorage implements Storage {
         } else if (size >= STORAGE_LIMIT) {
             System.out.println("Слишком много резюме");
         } else {
-            insertEl(resume);
+            insertResume(resume);
             size++;
         }
     }
@@ -69,8 +69,6 @@ public abstract class AbstractArrayStorage implements Storage {
 
     abstract protected int getIndex(String uuid);
 
-    abstract protected void insertEl(Resume resume);
-
-    abstract protected int binaryInsert(Resume resume);
+    abstract protected void insertResume(Resume resume);
 
 }

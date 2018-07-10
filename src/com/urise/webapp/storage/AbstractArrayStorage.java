@@ -21,6 +21,7 @@ public abstract class AbstractArrayStorage implements Storage {
             System.out.println("Слишком много резюме");
         } else {
             insertEl(resume);
+            size++;
         }
     }
 

@@ -77,12 +77,12 @@ public abstract class AbstractArrayStorageTest {
 
     @Test(expected = NotExistStorageException.class)
     public void deleteNotExist() throws Exception {
-        storage.delete("dummy");
+        storage.delete(UUID_4);
     }
 
     @Test
     public void getAll() {
-        Resume[] tempStorage = new Resume[]{storage.get(UUID_1), storage.get(UUID_2), storage.get(UUID_3)};
+        Resume[] tempStorage = {resume1, resume2, resume3};
         assertArrayEquals(tempStorage, storage.getAll());
     }
 

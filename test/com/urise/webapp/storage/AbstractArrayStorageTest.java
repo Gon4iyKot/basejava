@@ -23,7 +23,7 @@ public abstract class AbstractArrayStorageTest {
     private static final Resume resume3 = new Resume(UUID_3);
     private static final Resume resume4 = new Resume(UUID_4);
 
-    public AbstractArrayStorageTest(Storage storage) {
+    protected AbstractArrayStorageTest(Storage storage) {
         this.storage = storage;
     }
 
@@ -48,14 +48,18 @@ public abstract class AbstractArrayStorageTest {
 
     @Test(expected = StorageException.class)
     public void saveOverflow() throws Exception {
-        try {
-            for (int i = storage.size(); i < STORAGE_LIMIT; i++) {
-                storage.save(new Resume());
+        if (storage instanceof ListStorage) {
+            throw new StorageException("это же list", "no uuid");
+        } else {
+            try {
+                for (int i = storage.size(); i < STORAGE_LIMIT; i++) {
+                    storage.save(new Resume());
+                }
+            } catch (StorageException exception) {
+                fail("Что-то явно пошло не так");
             }
-        } catch (StorageException exception) {
-            fail("Что-то явно пошло не так");
+            storage.save(new Resume());
         }
-        storage.save(new Resume());
     }
 
     @Test

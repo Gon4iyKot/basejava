@@ -8,9 +8,10 @@ public abstract class AbstractStorage implements Storage {
 
     @Override
     public void save(Resume resume) {
-        int index = getIndex(resume.getUuid());
+        String tempUuid = getUuidFromResume(resume);
+        int index = getIndex(tempUuid);
         if (index >= 0) {
-            throw new ExistStorageException(resume.getUuid());
+            throw new ExistStorageException(tempUuid);
         } else {
             saveOnConditions(resume, index);
         }
@@ -20,50 +21,37 @@ public abstract class AbstractStorage implements Storage {
     @Override
     public Resume get(String uuid) {
         int index = getIndex(uuid);
-        if (index < 0) {
-            throw new NotExistStorageException(uuid);
-        }
+        throwNotExistStorageExceptionIf(index, uuid);
         return getResume(index);
     }
 
     @Override
     public void update(Resume resume) {
-        int index = getIndex(resume.getUuid());
-        if (index < 0) {
-            throw new NotExistStorageException(resume.getUuid());
-        } else {
-            updateByIndex(resume, index);
-        }
+        String tempUuid = getUuidFromResume(resume);
+        int index = getIndex(tempUuid);
+        throwNotExistStorageExceptionIf(index, tempUuid);
+        updateByIndex(resume, index);
     }
 
     @Override
     public void delete(String uuid) {
         int index = getIndex(uuid);
-        if (index < 0) {
+        throwNotExistStorageExceptionIf(index, uuid);
+        deleteResume(index);
+    }
+
+    protected final String getUuidFromResume(Resume resume) {
+        return resume.getUuid();
+    }
+
+    protected final void throwNotExistStorageExceptionIf(int index, String uuid) {
+        if (index < 0)
             throw new NotExistStorageException(uuid);
-        } else {
-            deleteResume(index);
         }
-
-    }
-
-    @Override
-    abstract public Resume[] getAll();
-
-    @Override
-    public int size() {
-        return 0;
-    }
-
-    @Override
-    public void clear() {
-    }
 
     abstract protected int getIndex(String uuid);
 
     abstract protected Resume getResume(int index);
-
-    abstract protected void insertResume(Resume resume, int index);
 
     abstract protected void deleteResume(int index);
 

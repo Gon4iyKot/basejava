@@ -5,12 +5,11 @@ import com.urise.webapp.model.Resume;
 import java.util.ArrayList;
 
 public class ListStorage extends AbstractStorage{
-    public final ArrayList<Resume> listStorage = new ArrayList<Resume>();
+    public final ArrayList<Resume> listStorage = new ArrayList<>();
 
     @Override
     public Resume[] getAll() {
-        Resume [] resumes = listStorage.toArray(new Resume[listStorage.size()]);
-        return (resumes);
+        return listStorage.toArray(new Resume[0]);
     }
 
     @Override
@@ -26,10 +25,6 @@ public class ListStorage extends AbstractStorage{
     @Override
     protected int getIndex(String uuid) {
         return listStorage.indexOf(new Resume(uuid));
-    }
-
-    @Override
-    protected void insertResume(Resume resume, int index) {
     }
 
     @Override

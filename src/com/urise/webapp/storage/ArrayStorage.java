@@ -2,10 +2,6 @@ package com.urise.webapp.storage;
 
 import com.urise.webapp.model.Resume;
 
-
-/**
- * Array based storage for Resumes
- */
 public class ArrayStorage extends AbstractArrayStorage {
 
     @Override
@@ -24,8 +20,8 @@ public class ArrayStorage extends AbstractArrayStorage {
     }
 
     @Override
-    protected void deleteResume(int index) {
+    protected void deleteResumeByType(int index) {
         storage[index] = storage[size - 1];
-        super.deleteResume(index);
     }
+
 }

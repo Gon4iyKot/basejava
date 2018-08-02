@@ -5,10 +5,6 @@ import com.urise.webapp.model.Resume;
 
 import java.util.Arrays;
 
-
-/**
- * Array based storage for Resumes
- */
 public abstract class AbstractArrayStorage extends AbstractStorage {
 
     protected static int STORAGE_LIMIT = 10000;
@@ -52,8 +48,13 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    protected void deleteResume(int index) {
+    final protected void deleteResume(int index) {
+        deleteResumeByType(index);
         storage[size - 1] = null;
         size--;
     }
+
+    abstract protected void insertResume(Resume resume, int index);
+
+    abstract protected void deleteResumeByType(int index);
 }

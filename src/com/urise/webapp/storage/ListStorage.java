@@ -43,7 +43,7 @@ public class ListStorage extends AbstractStorage{
     }
 
     @Override
-    protected void updateByIndex(Resume resume, int index) {
+    protected void rewriteResume(Resume resume, int index) {
         listStorage.set(index, resume);
     }
 }

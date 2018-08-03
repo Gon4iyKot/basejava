@@ -36,6 +36,6 @@ public class MapStorage extends AbstractStorage{
     }
 
     @Override
-    protected void updateByIndex(Resume resume, int index) {
+    protected void rewriteResume(Resume resume, int index) {
     }
 }

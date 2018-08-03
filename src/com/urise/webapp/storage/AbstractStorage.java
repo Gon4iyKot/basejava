@@ -8,46 +8,47 @@ public abstract class AbstractStorage implements Storage {
 
     @Override
     public void save(Resume resume) {
-        String tempUuid = getUuidFromResume(resume);
-        int index = getIndex(tempUuid);
-        if (index >= 0) {
-            throw new ExistStorageException(tempUuid);
-        } else {
-            saveOnConditions(resume, index);
-        }
-
+        int index = checkIfExist(resume);
+        saveOnConditions(resume, index);
     }
 
     @Override
     public Resume get(String uuid) {
-        int index = getIndex(uuid);
-        throwNotExistStorageExceptionIf(index, uuid);
+        int index = checkIfNotExist(uuid);
         return getResume(index);
     }
 
     @Override
     public void update(Resume resume) {
-        String tempUuid = getUuidFromResume(resume);
-        int index = getIndex(tempUuid);
-        throwNotExistStorageExceptionIf(index, tempUuid);
-        updateByIndex(resume, index);
+        int index = checkIfNotExist(resume.getUuid());
+        rewriteResume(resume, index);
     }
 
     @Override
     public void delete(String uuid) {
-        int index = getIndex(uuid);
-        throwNotExistStorageExceptionIf(index, uuid);
+        int index = checkIfNotExist(uuid);
         deleteResume(index);
     }
 
-    protected final String getUuidFromResume(Resume resume) {
-        return resume.getUuid();
+    protected final int checkIfExist(Resume resume) {
+        String tempUuid = resume.getUuid();
+        int index = getIndex(tempUuid);
+        if (index >= 0) {
+            throw new ExistStorageException(tempUuid);
+        } else {
+            return index;
+        }
+
     }
 
-    protected final void throwNotExistStorageExceptionIf(int index, String uuid) {
-        if (index < 0)
+    protected final int checkIfNotExist(String uuid) {
+        int index = getIndex(uuid);
+        if (index < 0) {
             throw new NotExistStorageException(uuid);
+        } else {
+            return index;
         }
+    }
 
     abstract protected int getIndex(String uuid);
 
@@ -57,5 +58,7 @@ public abstract class AbstractStorage implements Storage {
 
     abstract protected void saveOnConditions(Resume resume, int index);
 
-    abstract protected void updateByIndex(Resume resume, int index);
+    abstract protected void rewriteResume(Resume resume, int index);
+
+
 }

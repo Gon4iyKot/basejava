@@ -49,12 +49,12 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
 
     @Override
     final protected void deleteResume(int index) {
-        shiftResumeByType(index);
+        shiftResume(index);
         storage[size - 1] = null;
         size--;
     }
 
     abstract protected void insertResume(Resume resume, int index);
 
-    abstract protected void shiftResumeByType(int index);
+    abstract protected void shiftResume(int index);
 }

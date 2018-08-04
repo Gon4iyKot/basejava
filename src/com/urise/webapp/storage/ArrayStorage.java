@@ -20,7 +20,7 @@ public class ArrayStorage extends AbstractArrayStorage {
     }
 
     @Override
-    protected void shiftResumeByType(int index) {
+    protected void shiftResume(int index) {
         storage[index] = storage[size - 1];
     }
 

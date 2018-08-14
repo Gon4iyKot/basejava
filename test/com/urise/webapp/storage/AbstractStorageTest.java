@@ -7,8 +7,13 @@ import com.urise.webapp.model.Resume;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static com.urise.webapp.storage.AbstractArrayStorage.STORAGE_LIMIT;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+import static org.junit.Assume.assumeTrue;
 
 public abstract class AbstractStorageTest {
 
@@ -18,10 +23,15 @@ public abstract class AbstractStorageTest {
     private static final String UUID_2 = "uuid2";
     private static final String UUID_3 = "uuid3";
     private static final String UUID_4 = "uuid4";
-    private static final Resume resume1 = new Resume(UUID_1);
-    private static final Resume resume2 = new Resume(UUID_2);
-    private static final Resume resume3 = new Resume(UUID_3);
-    private static final Resume resume4 = new Resume(UUID_4);
+    private static final String FULL_NAME_1 = "fullName1";
+    private static final String FULL_NAME_2 = "fullName2";
+    private static final String FULL_NAME_3 = "fullName3";
+    private static final String FULL_NAME_4 = "fullName4";
+
+    private static final Resume resume1 = new Resume(UUID_1, FULL_NAME_1);
+    private static final Resume resume2 = new Resume(UUID_2, FULL_NAME_2);
+    private static final Resume resume3 = new Resume(UUID_3, FULL_NAME_3);
+    private static final Resume resume4 = new Resume(UUID_4, FULL_NAME_4);
 
     protected AbstractStorageTest(Storage storage) {
         this.storage = storage;
@@ -48,23 +58,20 @@ public abstract class AbstractStorageTest {
 
     @Test(expected = StorageException.class)
     public void saveOverflow() {
-        if (storage instanceof ListStorage) {
-            throw new StorageException("это же list", "no uuid");
-        } else {
-            try {
-                for (int i = storage.size(); i < STORAGE_LIMIT; i++) {
-                    storage.save(new Resume());
-                }
-            } catch (StorageException exception) {
-                fail("Что-то явно пошло не так");
+        assumeTrue(storage instanceof AbstractArrayStorage);
+        try {
+            for (int i = storage.size(); i < STORAGE_LIMIT; i++) {
+                storage.save(new Resume());
             }
-            storage.save(new Resume());
+        } catch (StorageException exception) {
+            fail("Что-то явно пошло не так");
         }
+        storage.save(new Resume());
     }
 
     @Test
     public void update() {
-        Resume resume = new Resume(UUID_1);
+        Resume resume = new Resume(UUID_1, FULL_NAME_1);
         assertEquals(resume, storage.get(UUID_1));
     }
 
@@ -86,8 +93,8 @@ public abstract class AbstractStorageTest {
 
     @Test
     public void getAll() {
-        Resume[] tempStorage = {resume1, resume2, resume3};
-        assertArrayEquals(tempStorage, storage.getAll());
+        List<Resume> tempStorage = Arrays.asList(resume1, resume2, resume3);
+        assertEquals(tempStorage, storage.getAllSorted());
     }
 
     @Test

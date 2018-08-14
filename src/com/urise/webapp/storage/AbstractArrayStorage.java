@@ -4,6 +4,7 @@ import com.urise.webapp.exception.StorageException;
 import com.urise.webapp.model.Resume;
 
 import java.util.Arrays;
+import java.util.List;
 
 public abstract class AbstractArrayStorage extends AbstractStorage {
 
@@ -12,8 +13,8 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     protected int size = 0;
 
     @Override
-    final public Resume[] getAll() {
-        return Arrays.copyOfRange(storage, 0, size);
+    final public List<Resume> getAll() {
+        return Arrays.asList(Arrays.copyOfRange(storage, 0, size));
     }
 
     @Override
@@ -28,30 +29,35 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    final protected void saveOnConditions(Resume resume, int index) {
+    final protected void saveOnConditions(Resume resume, Object searchKey) {
         if (size >= STORAGE_LIMIT) {
             throw new StorageException("Слишком много резюме", resume.getUuid());
         } else {
-            insertResume(resume, index);
+            insertResume(resume, (int) searchKey);
             size++;
         }
     }
 
     @Override
-    final protected Resume getResume(int index) {
-        return storage[index];
+    final protected Resume getResume(Object searchKey) {
+        return storage[(int) searchKey];
     }
 
     @Override
-    final protected void rewriteResume(Resume resume, int index) {
-        storage[index] = resume;
+    final protected void rewriteResume(Resume resume, Object searchKey) {
+        storage[(int) searchKey] = resume;
     }
 
     @Override
-    final protected void deleteResume(int index) {
-        shiftResume(index);
+    final protected void deleteResume(Object searchKey) {
+        shiftResume((int) searchKey);
         storage[size - 1] = null;
         size--;
+    }
+
+    @Override
+    final protected boolean checkExistence(Object searchKey) {
+        return ((Integer) searchKey >= 0);
     }
 
     abstract protected void insertResume(Resume resume, int index);

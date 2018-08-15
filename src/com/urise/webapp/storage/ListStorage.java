@@ -10,7 +10,7 @@ public class ListStorage extends AbstractStorage {
 
     @Override
     public List<Resume> getAll() {
-        return listStorage;
+        return new ArrayList<>(listStorage);
     }
 
     @Override
@@ -24,7 +24,7 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected Object getSearchKey(String uuid) {
+    protected Integer getSearchKey(String uuid) {
         for (int i = 0; i < size(); i++) {
             if (listStorage.get(i).getUuid().equals(uuid))
                 return i;
@@ -34,7 +34,7 @@ public class ListStorage extends AbstractStorage {
 
     @Override
     protected void deleteResume(Object searchKey) {
-        listStorage.remove((int) searchKey);
+        listStorage.remove((int)searchKey);
     }
 
     @Override
@@ -44,16 +44,16 @@ public class ListStorage extends AbstractStorage {
 
     @Override
     protected Resume getResume(Object searchKey) {
-        return listStorage.get((int) searchKey);
+        return listStorage.get((Integer)searchKey);
     }
 
     @Override
     protected void rewriteResume(Resume resume, Object searchKey) {
-        listStorage.set((int) searchKey, resume);
+        listStorage.set((Integer) searchKey, resume);
     }
 
     @Override
-    final protected boolean checkExistence(Object searchKey) {
+    final protected boolean checkIfExist(Object searchKey) {
         return ((Integer) searchKey >= 0);
     }
 }

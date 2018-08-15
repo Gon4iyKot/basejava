@@ -33,30 +33,30 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         if (size >= STORAGE_LIMIT) {
             throw new StorageException("Слишком много резюме", resume.getUuid());
         } else {
-            insertResume(resume, (int) searchKey);
+            insertResume(resume, (Integer) searchKey);
             size++;
         }
     }
 
     @Override
     final protected Resume getResume(Object searchKey) {
-        return storage[(int) searchKey];
+        return storage[(Integer) searchKey];
     }
 
     @Override
     final protected void rewriteResume(Resume resume, Object searchKey) {
-        storage[(int) searchKey] = resume;
+        storage[(Integer) searchKey] = resume;
     }
 
     @Override
     final protected void deleteResume(Object searchKey) {
-        shiftResume((int) searchKey);
+        shiftResume((Integer) searchKey);
         storage[size - 1] = null;
         size--;
     }
 
     @Override
-    final protected boolean checkExistence(Object searchKey) {
+    final protected boolean checkIfExist(Object searchKey) {
         return ((Integer) searchKey >= 0);
     }
 

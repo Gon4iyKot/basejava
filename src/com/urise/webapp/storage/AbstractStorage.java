@@ -40,7 +40,7 @@ public abstract class AbstractStorage implements Storage {
         return list;
     }
 
-    protected final Object getIfNotExist(String uuid) {
+    private Object getIfNotExist(String uuid) {
         Object searchKey = getSearchKey(uuid);
         if (checkIfExist(searchKey)) {
             throw new ExistStorageException(uuid);
@@ -50,7 +50,7 @@ public abstract class AbstractStorage implements Storage {
 
     }
 
-    protected final Object getIfExist(String uuid) {
+    private Object getIfExist(String uuid) {
         Object searchKey = getSearchKey(uuid);
         if (!checkIfExist(searchKey)) {
             throw new NotExistStorageException(uuid);

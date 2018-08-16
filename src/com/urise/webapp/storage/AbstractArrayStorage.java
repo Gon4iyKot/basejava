@@ -8,28 +8,28 @@ import java.util.List;
 
 public abstract class AbstractArrayStorage extends AbstractStorage {
 
-    protected static int STORAGE_LIMIT = 10000;
+    protected static final int STORAGE_LIMIT = 10000;
     protected Resume[] storage = new Resume[STORAGE_LIMIT];
     protected int size = 0;
 
     @Override
-    final public List<Resume> getAll() {
+    public final List<Resume> getAll() {
         return Arrays.asList(Arrays.copyOfRange(storage, 0, size));
     }
 
     @Override
-    final public int size() {
+    public final int size() {
         return size;
     }
 
     @Override
-    final public void clear() {
+    public final void clear() {
         Arrays.fill(storage, 0, size, null);
         size = 0;
     }
 
     @Override
-    final protected void saveOnConditions(Resume resume, Object searchKey) {
+    protected final void saveOnConditions(Resume resume, Object searchKey) {
         if (size >= STORAGE_LIMIT) {
             throw new StorageException("Слишком много резюме", resume.getUuid());
         } else {
@@ -39,24 +39,24 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    final protected Resume getResume(Object searchKey) {
+    protected final Resume getResume(Object searchKey) {
         return storage[(Integer) searchKey];
     }
 
     @Override
-    final protected void rewriteResume(Resume resume, Object searchKey) {
+    protected final void rewriteResume(Resume resume, Object searchKey) {
         storage[(Integer) searchKey] = resume;
     }
 
     @Override
-    final protected void deleteResume(Object searchKey) {
+    protected final void deleteResume(Object searchKey) {
         shiftResume((Integer) searchKey);
         storage[size - 1] = null;
         size--;
     }
 
     @Override
-    final protected boolean checkIfExist(Object searchKey) {
+    protected final boolean checkIfExist(Object searchKey) {
         return ((Integer) searchKey >= 0);
     }
 

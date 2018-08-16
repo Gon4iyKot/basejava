@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ListStorage extends AbstractStorage {
-    public final ArrayList<Resume> listStorage = new ArrayList<>();
+    private ArrayList<Resume> listStorage = new ArrayList<>();
 
     @Override
     public List<Resume> getAll() {
@@ -34,7 +34,7 @@ public class ListStorage extends AbstractStorage {
 
     @Override
     protected void deleteResume(Object searchKey) {
-        listStorage.remove((int)searchKey);
+        listStorage.remove((int) searchKey);
     }
 
     @Override
@@ -44,7 +44,7 @@ public class ListStorage extends AbstractStorage {
 
     @Override
     protected Resume getResume(Object searchKey) {
-        return listStorage.get((Integer)searchKey);
+        return listStorage.get((Integer) searchKey);
     }
 
     @Override
@@ -53,7 +53,7 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    final protected boolean checkIfExist(Object searchKey) {
+    protected boolean checkIfExist(Object searchKey) {
         return ((Integer) searchKey >= 0);
     }
 }

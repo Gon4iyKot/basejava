@@ -13,17 +13,17 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     protected int size = 0;
 
     @Override
-    public final List<Resume> getAll() {
-        return Arrays.asList(Arrays.copyOfRange(storage, 0, size));
+    public List<Resume> getAll() {
+        return Arrays.asList(Arrays.copyOf(storage, size));
     }
 
     @Override
-    public final int size() {
+    public int size() {
         return size;
     }
 
     @Override
-    public final void clear() {
+    public void clear() {
         Arrays.fill(storage, 0, size, null);
         size = 0;
     }
@@ -39,12 +39,12 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    protected final Resume getResume(Object searchKey) {
+    protected Resume getResume(Object searchKey) {
         return storage[(Integer) searchKey];
     }
 
     @Override
-    protected final void rewriteResume(Resume resume, Object searchKey) {
+    protected void rewriteResume(Resume resume, Object searchKey) {
         storage[(Integer) searchKey] = resume;
     }
 
@@ -56,7 +56,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    protected final boolean checkIfExist(Object searchKey) {
+    protected boolean checkIfExist(Object searchKey) {
         return ((Integer) searchKey >= 0);
     }
 

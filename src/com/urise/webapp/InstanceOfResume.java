@@ -2,9 +2,9 @@ package com.urise.webapp;
 
 import com.urise.webapp.model.*;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Date;
 
 public class InstanceOfResume {
     public static void main(String[] args) {
@@ -21,9 +21,9 @@ public class InstanceOfResume {
         resume1.section.put(SectionType.PERSONAL, new TextSection("some personal info"));
         resume1.section.put(SectionType.ACHIEVEMENT, new ListSection(Arrays.asList("1 achievement", "2 achievement")));
         resume1.section.put(SectionType.EXPERIENCE, new ContentBlock(Collections.singletonList(
-                            new ContentUnit("title", new Date(), new Date(), "subtitle", "description"))));
+                new ContentUnit("title", null, LocalDate.now(), LocalDate.now(), "subtitle", "description"))));
         resume1.section.put(SectionType.EDUCATION, new ContentBlock(Collections.singletonList(
-                            new ContentUnit("title", new Date(), new Date(), "subtitle", "description"))));
+                new ContentUnit("title", null, LocalDate.now(), LocalDate.now(), "subtitle", "description"))));
         System.out.println(resume1);
 
     }

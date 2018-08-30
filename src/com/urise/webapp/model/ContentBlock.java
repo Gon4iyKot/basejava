@@ -30,8 +30,6 @@ public class ContentBlock extends AbstractSection {
 
     @Override
     public String toString() {
-        return "ContentBlock{" +
-                "block=" + block +
-                '}';
+        return block.toString();
     }
 }

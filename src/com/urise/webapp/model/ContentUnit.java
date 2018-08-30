@@ -1,21 +1,21 @@
 package com.urise.webapp.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class ContentUnit {
-    private final String title;
-    private final Date startDate;
-    private final Date endDate;
+    private final Link homePage;
+    private final LocalDate startDate;
+    private final LocalDate endDate;
     private final String subtitle;
     private final String description;
 
-    public ContentUnit(String title, Date startDate, Date endDate, String subtitle, String description) {
-        Objects.requireNonNull(title, "title must not be null");
+    public ContentUnit(String name, String url, LocalDate startDate, LocalDate endDate, String subtitle, String description) {
+        Objects.requireNonNull(name, "title must not be null");
         Objects.requireNonNull(startDate, "startDate must not be null");
         Objects.requireNonNull(endDate, "endDate must not be null");
         Objects.requireNonNull(subtitle, "subtitle must not be null");
-        this.title = title;
+        this.homePage = new Link(name, url);
         this.startDate = startDate;
         this.endDate = endDate;
         this.subtitle = subtitle;
@@ -27,7 +27,7 @@ public class ContentUnit {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ContentUnit that = (ContentUnit) o;
-        return Objects.equals(title, that.title) &&
+        return Objects.equals(homePage, that.homePage) &&
                 Objects.equals(startDate, that.startDate) &&
                 Objects.equals(endDate, that.endDate) &&
                 Objects.equals(subtitle, that.subtitle) &&
@@ -36,13 +36,13 @@ public class ContentUnit {
 
     @Override
     public int hashCode() {
-        return Objects.hash(title, startDate, endDate, subtitle, description);
+        return Objects.hash(homePage, startDate, endDate, subtitle, description);
     }
 
     @Override
     public String toString() {
-        return "ContentBlock{" +
-                "title='" + title + '\'' +
+        return "ContentUnit{" +
+                "title='" + homePage + '\'' +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
                 ", subtitle='" + subtitle + '\'' +

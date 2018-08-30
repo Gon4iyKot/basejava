@@ -1,6 +1,7 @@
 package com.urise.webapp.model;
 
 import java.util.EnumMap;
+import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -10,8 +11,8 @@ public class Resume implements Comparable<Resume> {
     private final String uuid;
     private String fullName;
 
-    public EnumMap<ContactType, String> contact = new EnumMap<>(ContactType.class);
-    public EnumMap<SectionType, AbstractSection> section = new EnumMap<>(SectionType.class);
+    public Map<ContactType, String> contact = new EnumMap<>(ContactType.class);
+    public Map<SectionType, AbstractSection> section = new EnumMap<>(SectionType.class);
 
     public String getContacts(ContactType contact) {
         return this.contact.get(contact);
@@ -42,20 +43,15 @@ public class Resume implements Comparable<Resume> {
         if (o == null || getClass() != o.getClass()) return false;
         Resume resume = (Resume) o;
         return Objects.equals(uuid, resume.uuid) &&
-                Objects.equals(fullName, resume.fullName);
+                Objects.equals(fullName, resume.fullName) &&
+                Objects.equals(contact, resume.contact) &&
+                Objects.equals(section, resume.section);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(uuid, fullName);
+        return Objects.hash(uuid, fullName, contact, section);
     }
-
-/*
-    @Override
-    public String toString() {
-        return uuid + '(' + fullName + ')';
-    }
-*/
 
     @Override
     public String toString() {

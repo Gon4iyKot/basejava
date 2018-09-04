@@ -3,6 +3,7 @@ package com.urise.webapp;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Objects;
 
 public class MainFile {
     public static void main(String[] args) {
@@ -35,8 +36,8 @@ public class MainFile {
 
     }
 
-    public static void showFileTree(File homeDir) throws IOException {
-        for (File anyFile : homeDir.listFiles()) {
+    private static void showFileTree(File homeDir) throws IOException {
+        for (File anyFile : Objects.requireNonNull(homeDir.listFiles())) {
             if (anyFile.isDirectory()) {
                 System.out.println("Directory: " + anyFile.getCanonicalPath());
                 showFileTree(anyFile);
@@ -45,4 +46,5 @@ public class MainFile {
             }
         }
     }
+
 }

@@ -16,7 +16,7 @@ public class MapStorage extends AbstractStorage<Resume> {
     }
 
     @Override
-    public List<Resume> getAll() {
+    public List<Resume> doCopyAll() {
         return new ArrayList<>(mapStorage.values());
     }
 
@@ -31,22 +31,22 @@ public class MapStorage extends AbstractStorage<Resume> {
     }
 
     @Override
-    protected void deleteResume(Resume searchKey) {
+    protected void doDelete(Resume searchKey) {
         mapStorage.remove((searchKey).getUuid());
     }
 
     @Override
-    protected void saveOnConditions(Resume resume, Resume searchKey) {
+    protected void doSave(Resume resume, Resume searchKey) {
         mapStorage.put(resume.getUuid(), resume);
     }
 
     @Override
-    protected Resume getResume(Resume searchKey) {
+    protected Resume doGet(Resume searchKey) {
         return searchKey;
     }
 
     @Override
-    protected void rewriteResume(Resume resume, Resume searchKey) {
+    protected void doUpdate(Resume resume, Resume searchKey) {
         mapStorage.put(resume.getUuid(), resume);
     }
 

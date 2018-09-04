@@ -9,7 +9,7 @@ public class ListStorage extends AbstractStorage<Integer> {
     private ArrayList<Resume> listStorage = new ArrayList<>();
 
     @Override
-    public List<Resume> getAll() {
+    public List<Resume> doCopyAll() {
         return new ArrayList<>(listStorage);
     }
 
@@ -33,22 +33,22 @@ public class ListStorage extends AbstractStorage<Integer> {
     }
 
     @Override
-    protected void deleteResume(Integer searchKey) {
+    protected void doDelete(Integer searchKey) {
         listStorage.remove((int) searchKey);
     }
 
     @Override
-    protected void saveOnConditions(Resume resume, Integer searchKey) {
+    protected void doSave(Resume resume, Integer searchKey) {
         listStorage.add(resume);
     }
 
     @Override
-    protected Resume getResume(Integer searchKey) {
+    protected Resume doGet(Integer searchKey) {
         return listStorage.get(searchKey);
     }
 
     @Override
-    protected void rewriteResume(Resume resume, Integer searchKey) {
+    protected void doUpdate(Resume resume, Integer searchKey) {
         listStorage.set(searchKey, resume);
     }
 

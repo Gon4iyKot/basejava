@@ -20,10 +20,10 @@ public class InstanceOfResume {
         resume1.section.put(SectionType.OBJECTIVE, new TextSection("some objective"));
         resume1.section.put(SectionType.PERSONAL, new TextSection("some personal info"));
         resume1.section.put(SectionType.ACHIEVEMENT, new ListSection(Arrays.asList("1 achievement", "2 achievement")));
-        resume1.section.put(SectionType.EXPERIENCE, new ContentBlock(Collections.singletonList(
-                new ContentUnit("title", null, LocalDate.now(), LocalDate.now(), "subtitle", "description"))));
-        resume1.section.put(SectionType.EDUCATION, new ContentBlock(Collections.singletonList(
-                new ContentUnit("title", null, LocalDate.now(), LocalDate.now(), "subtitle", "description"))));
+        resume1.section.put(SectionType.EXPERIENCE, new OrganisationSection(Collections.singletonList(
+                new Organization("title", null, LocalDate.now(), LocalDate.now(), "subtitle", "description"))));
+        resume1.section.put(SectionType.EDUCATION, new OrganisationSection(Collections.singletonList(
+                new Organization("title", null, LocalDate.now(), LocalDate.now(), "subtitle", "description"))));
         System.out.println(resume1);
 
     }

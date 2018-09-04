@@ -38,7 +38,7 @@ public class MainArray {
                     System.out.println(ARRAY_STORAGE.size());
                     break;
                 case "save":
-                    r = new Resume(param);
+                    r = new Resume(param, fullName);
                     ARRAY_STORAGE.save(r);
                     printAll();
                     break;
@@ -67,7 +67,7 @@ public class MainArray {
         }
     }
 
-    static void printAll() {
+    private static void printAll() {
         List<Resume> all = ARRAY_STORAGE.getAllSorted();
         System.out.println("----------------------------");
         if (all.size() == 0) {

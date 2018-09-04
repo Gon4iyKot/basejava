@@ -26,7 +26,8 @@ public abstract class AbstractStorageTest {
     private static final Resume resume2 = new Resume(UUID_2, "fullName2");
     private static final Resume resume3 = new Resume(UUID_3, "fullName3");
     private static final Resume resume4 = new Resume(UUID_4, "fullName4");
-    {
+
+    static {
         resume1.contact.put(ContactType.ADDRESS, "some address");
         resume1.contact.put(ContactType.SKYPE, "some skype");
         resume1.contact.put(ContactType.TELEPHONE, "some nomber");
@@ -42,7 +43,6 @@ public abstract class AbstractStorageTest {
                 new Organization("title", null, LocalDate.now(), LocalDate.now(), "subtitle", "description"))));
         resume1.section.put(SectionType.EDUCATION, new OrganisationSection(Collections.singletonList(
                 new Organization("title", null, LocalDate.now(), LocalDate.now(), "subtitle", "description"))));
-
         resume2.contact.put(ContactType.ADDRESS, "some address 2");
         resume2.contact.put(ContactType.SKYPE, "some skype 2");
         resume2.contact.put(ContactType.TELEPHONE, "some nomber 2");
@@ -58,7 +58,6 @@ public abstract class AbstractStorageTest {
                 new Organization("title", null, LocalDate.now(), LocalDate.now(), "subtitle", "description"))));
         resume2.section.put(SectionType.EDUCATION, new OrganisationSection(Collections.singletonList(
                 new Organization("title", null, LocalDate.now(), LocalDate.now(), "subtitle", "description"))));
-
         resume3.contact.put(ContactType.ADDRESS, "some address 3");
         resume3.contact.put(ContactType.SKYPE, "some skype 3");
         resume3.contact.put(ContactType.TELEPHONE, "some nomber 3");

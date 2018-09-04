@@ -25,6 +25,5 @@ public class InstanceOfResume {
         resume1.section.put(SectionType.EDUCATION, new OrganisationSection(Collections.singletonList(
                 new Organization("title", null, LocalDate.now(), LocalDate.now(), "subtitle", "description"))));
         System.out.println(resume1);
-
     }
 }

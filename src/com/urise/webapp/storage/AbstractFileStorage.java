@@ -30,7 +30,11 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
 
     @Override
     protected Resume doGet(File file) {
-        return doRead(file);
+        try {
+            return doRead(file);
+        } catch (IOException e) {
+            throw new StorageException("IO error", file.getName(), e);
+        }
     }
 
     @Override
@@ -42,15 +46,19 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
     protected void doSave(Resume resume, File file) {
         try {
             file.createNewFile();
-            doWrite(resume, file);
+            doUpdate(resume, file);
         } catch (IOException e) {
-            throw new StorageException("IO error", file.getName(), e);
+            throw new StorageException("Unable to create new file", file.getName(), e);
         }
     }
 
     @Override
     protected void doUpdate(Resume resume, File file) {
-        doSave(resume, file);
+        try {
+            doWrite(resume, file);
+        } catch (IOException e) {
+            throw new StorageException("Unable to write " + resume + " into file", file.getName(), e);
+        }
     }
 
     @Override
@@ -61,25 +69,37 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
     @Override
     protected List<Resume> doCopyAll() {
         List<Resume> allResumes = new ArrayList<>();
-        for (File file : Objects.requireNonNull(directory.listFiles())) {
-            allResumes.add(doRead(file));
+        File[] files = directory.listFiles();
+        if (files == null) {
+            throw new StorageException("File reading error / no files", null);
+        }
+        for (File file : files) {
+            allResumes.add(doGet(file));
         }
         return allResumes;
     }
 
     @Override
     public void clear() {
-        for (File file : Objects.requireNonNull(directory.listFiles())) {
-            file.delete();
+        File[] files = directory.listFiles();
+        if (files == null) {
+            throw new StorageException("Reading error / no files", null);
+        }
+        for (File file : files) {
+            doDelete(file);
         }
     }
 
     @Override
     public int size() {
-        return Objects.requireNonNull(directory.listFiles()).length;
+        File[] files = directory.listFiles();
+        if (files == null) {
+            throw new StorageException("Reading error / no files", null);
+        }
+        return files.length;
     }
 
     protected abstract void doWrite(Resume resume, File file) throws IOException;
 
-    protected abstract Resume doRead(File file);
+    protected abstract Resume doRead(File file) throws IOException;
 }

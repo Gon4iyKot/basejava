@@ -39,10 +39,10 @@ public class MainFile {
     private static void showFileTree(File homeDir) throws IOException {
         for (File anyFile : Objects.requireNonNull(homeDir.listFiles())) {
             if (anyFile.isDirectory()) {
-                System.out.println("Directory: " + anyFile.getCanonicalPath());
+                System.out.println(anyFile.getName());
                 showFileTree(anyFile);
             } else {
-                System.out.println("File:           " + anyFile.getName());
+                System.out.println(anyFile.getName());
             }
         }
     }

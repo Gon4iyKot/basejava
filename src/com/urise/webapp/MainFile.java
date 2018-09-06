@@ -41,7 +41,7 @@ public class MainFile {
             if (anyFile.isDirectory()) {
                 showFileTree(anyFile);
             } else {
-                System.out.println("File:           " + anyFile.getName());
+                System.out.println(anyFile.getName());
             }
         }
     }

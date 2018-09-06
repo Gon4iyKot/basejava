@@ -39,7 +39,6 @@ public class MainFile {
     private static void showFileTree(File homeDir) throws IOException {
         for (File anyFile : Objects.requireNonNull(homeDir.listFiles())) {
             if (anyFile.isDirectory()) {
-                System.out.println(anyFile.getName());
                 showFileTree(anyFile);
             } else {
                 System.out.println(anyFile.getName());

@@ -49,7 +49,7 @@ public abstract class AbstractStorage<SK> implements Storage {
 
     private SK getIfNotExist(String uuid) {
         SK searchKey = getSearchKey(uuid);
-        if (checkIfExist(searchKey)) {
+        if (isExist(searchKey)) {
 //            LOG.warning("Резюме " + uuid + " не существует, попробуйте в другой раз");
             throw new ExistStorageException(uuid);
         } else {
@@ -60,7 +60,7 @@ public abstract class AbstractStorage<SK> implements Storage {
 
     private SK getIfExist(String uuid) {
         SK searchKey = getSearchKey(uuid);
-        if (!checkIfExist(searchKey)) {
+        if (!isExist(searchKey)) {
 //            LOG.warning("Резюме " + uuid + " уже существует");
             throw new NotExistStorageException(uuid);
         } else {
@@ -78,7 +78,7 @@ public abstract class AbstractStorage<SK> implements Storage {
 
     abstract protected void doUpdate(Resume resume, SK searchKey);
 
-    abstract protected boolean checkIfExist(SK searchKey);
+    abstract protected boolean isExist(SK searchKey);
 
     abstract protected List<Resume> doCopyAll();
 }

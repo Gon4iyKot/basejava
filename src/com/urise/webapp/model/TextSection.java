@@ -2,11 +2,11 @@ package com.urise.webapp.model;
 
 import java.util.Objects;
 
-public class TextSection extends AbstractSection {
+public class TextSection extends Section {
     private String textInfo;
 
     public TextSection(String personalInfo) {
-        Objects.requireNonNull("valuable information should not be empty");
+        Objects.requireNonNull(personalInfo,"valuable information should not be empty");
         this.textInfo = personalInfo;
     }
 

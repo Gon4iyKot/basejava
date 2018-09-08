@@ -1,18 +1,23 @@
 package com.urise.webapp.model;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-public class ListSection extends AbstractSection {
-    private final List<String> listOfValues;
+public class ListSection extends Section {
+    private final List<String> items;
 
-    public ListSection(List<String> listOfValues) {
-        Objects.requireNonNull(listOfValues, "list must not be null");
-        this.listOfValues = listOfValues;
+    public ListSection(String... items) {
+        this(Arrays.asList(items));
     }
 
-    public List<String> getListOfValues() {
-        return listOfValues;
+    public ListSection(List<String> items) {
+        Objects.requireNonNull(items, "items must not be null");
+        this.items = items;
+    }
+
+    public List<String> getItems() {
+        return items;
     }
 
     @Override
@@ -20,16 +25,17 @@ public class ListSection extends AbstractSection {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ListSection that = (ListSection) o;
-        return Objects.equals(listOfValues, that.listOfValues);
+        return Objects.equals(items, that.items);
+    }
+
+
+    @Override
+    public String toString() {
+        return items.toString();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(listOfValues);
-    }
-
-    @Override
-    public String toString() {
-        return listOfValues.toString();
+        return Objects.hash(items);
     }
 }

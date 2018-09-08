@@ -22,57 +22,63 @@ public abstract class AbstractStorageTest {
     private static final String UUID_3 = "uuid3";
     private static final String UUID_4 = "uuid4";
 
-    private static final Resume resume1 = new Resume(UUID_1, "fullName1");
-    private static final Resume resume2 = new Resume(UUID_2, "fullName2");
-    private static final Resume resume3 = new Resume(UUID_3, "fullName3");
-    private static final Resume resume4 = new Resume(UUID_4, "fullName4");
+    private static final Resume R1 = new Resume(UUID_1, "fullName1");
+    private static final Resume R2 = new Resume(UUID_2, "fullName2");
+    private static final Resume R3 = new Resume(UUID_3, "fullName3");
+    private static final Resume R4 = new Resume(UUID_4, "fullName4");
 
     static {
-        resume1.contact.put(ContactType.ADDRESS, "some address");
-        resume1.contact.put(ContactType.SKYPE, "some skype");
-        resume1.contact.put(ContactType.TELEPHONE, "some nomber");
-        resume1.contact.put(ContactType.EMAIL, "random e-mail");
-        resume1.contact.put(ContactType.GITHUB, "some github");
-        resume1.contact.put(ContactType.LINKEDIN, "some linkedin");
-        resume1.contact.put(ContactType.STACKOVERFLOW, "some stackoverflow");
-        resume1.contact.put(ContactType.PERSONALPAGE, "some page");
-        resume1.section.put(SectionType.OBJECTIVE, new TextSection("some objective"));
-        resume1.section.put(SectionType.PERSONAL, new TextSection("some personal info"));
-        resume1.section.put(SectionType.ACHIEVEMENT, new ListSection(Arrays.asList("1 achievement", "2 achievement")));
-        resume1.section.put(SectionType.EXPERIENCE, new OrganisationSection(Collections.singletonList(
-                new Organization("title", null, LocalDate.now(), LocalDate.now(), "subtitle", "description"))));
-        resume1.section.put(SectionType.EDUCATION, new OrganisationSection(Collections.singletonList(
-                new Organization("title", null, LocalDate.now(), LocalDate.now(), "subtitle", "description"))));
-        resume2.contact.put(ContactType.ADDRESS, "some address 2");
-        resume2.contact.put(ContactType.SKYPE, "some skype 2");
-        resume2.contact.put(ContactType.TELEPHONE, "some nomber 2");
-        resume2.contact.put(ContactType.EMAIL, "random e-mail 2");
-        resume2.contact.put(ContactType.GITHUB, "some github 2");
-        resume2.contact.put(ContactType.LINKEDIN, "some linkedin 2");
-        resume2.contact.put(ContactType.STACKOVERFLOW, "some stackoverflow 2");
-        resume2.contact.put(ContactType.PERSONALPAGE, "some page 2");
-        resume2.section.put(SectionType.OBJECTIVE, new TextSection("some objective 2"));
-        resume2.section.put(SectionType.PERSONAL, new TextSection("some personal info 2"));
-        resume2.section.put(SectionType.ACHIEVEMENT, new ListSection(Arrays.asList("1 achievement", "2 achievement 2")));
-        resume2.section.put(SectionType.EXPERIENCE, new OrganisationSection(Collections.singletonList(
-                new Organization("title", null, LocalDate.now(), LocalDate.now(), "subtitle", "description"))));
-        resume2.section.put(SectionType.EDUCATION, new OrganisationSection(Collections.singletonList(
-                new Organization("title", null, LocalDate.now(), LocalDate.now(), "subtitle", "description"))));
-        resume3.contact.put(ContactType.ADDRESS, "some address 3");
-        resume3.contact.put(ContactType.SKYPE, "some skype 3");
-        resume3.contact.put(ContactType.TELEPHONE, "some nomber 3");
-        resume3.contact.put(ContactType.EMAIL, "random e-mail 3");
-        resume3.contact.put(ContactType.GITHUB, "some github 3");
-        resume3.contact.put(ContactType.LINKEDIN, "some linkedin 3");
-        resume3.contact.put(ContactType.STACKOVERFLOW, "some stackoverflow 3");
-        resume3.contact.put(ContactType.PERSONALPAGE, "some page 3");
-        resume3.section.put(SectionType.OBJECTIVE, new TextSection("some objective 3"));
-        resume3.section.put(SectionType.PERSONAL, new TextSection("some personal info 3"));
-        resume3.section.put(SectionType.ACHIEVEMENT, new ListSection(Arrays.asList("1 achievement", "2 achievement 3")));
-        resume3.section.put(SectionType.EXPERIENCE, new OrganisationSection(Collections.singletonList(
-                new Organization("title", null, LocalDate.now(), LocalDate.now(), "subtitle", "description"))));
-        resume3.section.put(SectionType.EDUCATION, new OrganisationSection(Collections.singletonList(
-                new Organization("title", null, LocalDate.now(), LocalDate.now(), "subtitle", "description"))));
+        R1.addContact(ContactType.ADDRESS, "some address");
+        R1.addContact(ContactType.SKYPE, "some skype");
+        R1.addContact(ContactType.TELEPHONE, "some nomber");
+        R1.addContact(ContactType.EMAIL, "random e-mail");
+        R1.addContact(ContactType.GITHUB, "some github");
+        R1.addContact(ContactType.LINKEDIN, "some linkedin");
+        R1.addContact(ContactType.STACKOVERFLOW, "some stackoverflow");
+        R1.addContact(ContactType.PERSONALPAGE, "some page");
+        R1.addSection(SectionType.OBJECTIVE, new TextSection("some objective"));
+        R1.addSection(SectionType.PERSONAL, new TextSection("some personal info"));
+        R1.addSection(SectionType.ACHIEVEMENT, new ListSection(Arrays.asList("1 achievement", "2 achievement")));
+        R1.addSection(SectionType.EXPERIENCE, new OrganizationSection(Collections.singletonList(
+                new Organization("title", null,
+                        new Organization.Position(LocalDate.now(), LocalDate.now(), "subtitle", "description")))));
+        R1.addSection(SectionType.EDUCATION, new OrganizationSection(Collections.singletonList(
+                new Organization("title", null,
+                        new Organization.Position(LocalDate.now(), LocalDate.now(), "subtitle", "description")))));
+        R2.addContact(ContactType.ADDRESS, "some address 2");
+        R2.addContact(ContactType.SKYPE, "some skype 2");
+        R2.addContact(ContactType.TELEPHONE, "some nomber 2");
+        R2.addContact(ContactType.EMAIL, "random e-mail 2");
+        R2.addContact(ContactType.GITHUB, "some github 2");
+        R2.addContact(ContactType.LINKEDIN, "some linkedin 2");
+        R2.addContact(ContactType.STACKOVERFLOW, "some stackoverflow 2");
+        R2.addContact(ContactType.PERSONALPAGE, "some page 2");
+        R2.addSection(SectionType.OBJECTIVE, new TextSection("some objective 2"));
+        R2.addSection(SectionType.PERSONAL, new TextSection("some personal info 2"));
+        R2.addSection(SectionType.ACHIEVEMENT, new ListSection(Arrays.asList("1 achievement", "2 achievement 2")));
+        R2.addSection(SectionType.EXPERIENCE, new OrganizationSection(Collections.singletonList(
+                new Organization("title", null,
+                        new Organization.Position(LocalDate.now(), LocalDate.now(), "subtitle", "description")))));
+        R2.addSection(SectionType.EDUCATION, new OrganizationSection(Collections.singletonList(
+                new Organization("title", null,
+                        new Organization.Position(LocalDate.now(), LocalDate.now(), "subtitle", "description")))));
+        R3.addContact(ContactType.ADDRESS, "some address 3");
+        R3.addContact(ContactType.SKYPE, "some skype 3");
+        R3.addContact(ContactType.TELEPHONE, "some nomber 3");
+        R3.addContact(ContactType.EMAIL, "random e-mail 3");
+        R3.addContact(ContactType.GITHUB, "some github 3");
+        R3.addContact(ContactType.LINKEDIN, "some linkedin 3");
+        R3.addContact(ContactType.STACKOVERFLOW, "some stackoverflow 3");
+        R3.addContact(ContactType.PERSONALPAGE, "some page 3");
+        R3.addSection(SectionType.OBJECTIVE, new TextSection("some objective 3"));
+        R3.addSection(SectionType.PERSONAL, new TextSection("some personal info 3"));
+        R3.addSection(SectionType.ACHIEVEMENT, new ListSection(Arrays.asList("1 achievement", "2 achievement 3")));
+        R3.addSection(SectionType.EXPERIENCE, new OrganizationSection(Collections.singletonList(
+                new Organization("title", null,
+                        new Organization.Position(LocalDate.now(), LocalDate.now(), "subtitle", "description")))));
+        R3.addSection(SectionType.EDUCATION, new OrganizationSection(Collections.singletonList(
+                new Organization("title", null,
+                        new Organization.Position(LocalDate.now(), LocalDate.now(), "subtitle", "description")))));
     }
 
     protected AbstractStorageTest(Storage storage) {
@@ -82,20 +88,20 @@ public abstract class AbstractStorageTest {
     @Before
     public void setUp() {
         storage.clear();
-        storage.save(resume1);
-        storage.save(resume2);
-        storage.save(resume3);
+        storage.save(R1);
+        storage.save(R2);
+        storage.save(R3);
     }
 
     @Test
     public void save() {
-        storage.save(resume4);
+        storage.save(R4);
         assertEquals(4, storage.size());
     }
 
     @Test(expected = ExistStorageException.class)
     public void saveExist() {
-        storage.save(resume1);
+        storage.save(R1);
     }
 
     @Test
@@ -124,7 +130,7 @@ public abstract class AbstractStorageTest {
 
     @Test
     public void getAll() {
-        List<Resume> tempStorage = Arrays.asList(resume1, resume2, resume3);
+        List<Resume> tempStorage = Arrays.asList(R1, R2, R3);
         assertEquals(tempStorage, storage.getAllSorted());
     }
 
@@ -141,7 +147,7 @@ public abstract class AbstractStorageTest {
 
     @Test
     public void get() {
-        assertEquals(resume1, storage.get(UUID_1));
+        assertEquals(R1, storage.get(UUID_1));
     }
 
     @Test(expected = NotExistStorageException.class)

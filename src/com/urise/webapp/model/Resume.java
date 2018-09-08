@@ -1,13 +1,14 @@
 package com.urise.webapp.model;
 
+import java.io.Serializable;
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
 
-public class Resume implements Comparable<Resume> {
+public class Resume implements Comparable<Resume>, Serializable {
+    private static final long serialVersionUID= 1L;
 
-    // Unique identifier
     private final String uuid;
 
     private final String fullName;
@@ -74,7 +75,7 @@ public class Resume implements Comparable<Resume> {
 
     @Override
     public int compareTo(Resume o) {
-        int cmp = fullName.compareTo(o.fullName);
-        return cmp != 0 ? cmp : uuid.compareTo(o.uuid);
+        int tempResult = fullName.compareTo(o.fullName);
+        return tempResult == 0 ? uuid.compareTo(o.uuid) : tempResult;
     }
 }

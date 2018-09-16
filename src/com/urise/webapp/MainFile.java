@@ -13,7 +13,6 @@ public class MainFile {
         } catch (IOException e) {
             throw new RuntimeException("Error", e);
         }
-
         File dir = new File(".\\src\\com\\urise\\webapp");
         System.out.println(dir.isDirectory());
         String[] list = dir.list();
@@ -22,7 +21,6 @@ public class MainFile {
                 System.out.println(name);
             }
         }
-
         try (FileInputStream fis = new FileInputStream(filePath)) {
             System.out.println(fis.read());
         } catch (IOException e) {
@@ -32,18 +30,21 @@ public class MainFile {
         printDirectoryDeeply(homedir);
     }
 
+    static String step;
+
     public static void printDirectoryDeeply(File dir) {
         File[] files = dir.listFiles();
-
         if (files != null) {
             for (File file : files) {
                 if (file.isFile()) {
-                    System.out.println("        File: " + file.getName());
+                    System.out.println(step + "     File: " + file.getName());
                 } else if (file.isDirectory()) {
-                    System.out.println("Directory: " + file.getName());
+                    System.out.println(step + "Directory: " + file.getName());
+                    step += " ";
                     printDirectoryDeeply(file);
                 }
             }
+            step = "";
         }
     }
 }

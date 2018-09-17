@@ -9,11 +9,11 @@ public class MainFile {
         String filePath = ".\\.gitignore";
         File file = new File(filePath);
         try {
-            System.out.println(file.getCanonicalFile());
+            System.out.println(file.getCanonicalPath());
         } catch (IOException e) {
             throw new RuntimeException("Error", e);
         }
-        File dir = new File(".\\src\\com\\urise\\webapp");
+        File dir = new File("./src/ru/javawebinar/basejava");
         System.out.println(dir.isDirectory());
         String[] list = dir.list();
         if (list != null) {
@@ -27,24 +27,20 @@ public class MainFile {
             throw new RuntimeException(e);
         }
         File homedir = new File(".");
-        printDirectoryDeeply(homedir);
+        printDirectoryDeeply(homedir, "");
     }
 
-    static String step;
-
-    public static void printDirectoryDeeply(File dir) {
+    public static void printDirectoryDeeply(File dir, String offset) {
         File[] files = dir.listFiles();
         if (files != null) {
             for (File file : files) {
                 if (file.isFile()) {
-                    System.out.println(step + "     File: " + file.getName());
+                    System.out.println(offset + "F: " + file.getName());
                 } else if (file.isDirectory()) {
-                    System.out.println(step + "Directory: " + file.getName());
-                    step += " ";
-                    printDirectoryDeeply(file);
+                    System.out.println(offset + "D: " + file.getName());
+                    printDirectoryDeeply(file, offset + "  ");
                 }
             }
-            step = "";
         }
     }
 }

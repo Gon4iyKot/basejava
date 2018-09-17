@@ -37,13 +37,16 @@ public class ObjectStreamPathStorage extends AbstractStorage<Path> {
 
     @Override
     public int size() {
-        return doCopyAll().size();
+        try {
+            return (int) Files.list(directory).count();
+        } catch (IOException e) {
+            throw new StorageException("Directory read error", null);
+        }
     }
 
     @Override
     protected Path getSearchKey(String uuid) {
         return directory.resolve(uuid);
-//        return directory.relativize(Paths.get(uuid));
     }
 
     @Override

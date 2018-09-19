@@ -5,8 +5,11 @@ import java.util.Objects;
 public class TextSection extends Section {
     private String textInfo;
 
+    public TextSection() {
+    }
+
     public TextSection(String personalInfo) {
-        Objects.requireNonNull(personalInfo,"valuable information should not be empty");
+        Objects.requireNonNull(personalInfo, "valuable information should not be empty");
         this.textInfo = personalInfo;
     }
 

@@ -40,11 +40,12 @@ public abstract class AbstractStorageTest {
         R1.addSection(SectionType.OBJECTIVE, new TextSection("some objective"));
         R1.addSection(SectionType.PERSONAL, new TextSection("some personal info"));
         R1.addSection(SectionType.ACHIEVEMENT, new ListSection(Arrays.asList("1 achievement", "2 achievement")));
+        R1.addSection(SectionType.QUALIFICATIONS, new ListSection(Arrays.asList("1 qualification", "2 qualification")));
         R1.addSection(SectionType.EXPERIENCE, new OrganizationSection(Collections.singletonList(
-                new Organization("title", null,
+                new Organization("title", "https://www.google.com",
                         new Organization.Position(LocalDate.now(), LocalDate.now(), "subtitle", "description")))));
         R1.addSection(SectionType.EDUCATION, new OrganizationSection(Collections.singletonList(
-                new Organization("title", null,
+                new Organization("title", "https://www.google.com",
                         new Organization.Position(LocalDate.now(), LocalDate.now(), "subtitle", "description")))));
         R2.addContact(ContactType.ADDRESS, "some address 2");
         R2.addContact(ContactType.SKYPE, "some skype 2");
@@ -57,11 +58,12 @@ public abstract class AbstractStorageTest {
         R2.addSection(SectionType.OBJECTIVE, new TextSection("some objective 2"));
         R2.addSection(SectionType.PERSONAL, new TextSection("some personal info 2"));
         R2.addSection(SectionType.ACHIEVEMENT, new ListSection(Arrays.asList("1 achievement", "2 achievement 2")));
+        R2.addSection(SectionType.QUALIFICATIONS, new ListSection(Arrays.asList("1 qualification", "2 qualification")));
         R2.addSection(SectionType.EXPERIENCE, new OrganizationSection(Collections.singletonList(
-                new Organization("title", null,
+                new Organization("title", "https://www.google.com",
                         new Organization.Position(LocalDate.now(), LocalDate.now(), "subtitle", "description")))));
         R2.addSection(SectionType.EDUCATION, new OrganizationSection(Collections.singletonList(
-                new Organization("title", null,
+                new Organization("title", "https://www.google.com",
                         new Organization.Position(LocalDate.now(), LocalDate.now(), "subtitle", "description")))));
         R3.addContact(ContactType.ADDRESS, "some address 3");
         R3.addContact(ContactType.SKYPE, "some skype 3");
@@ -75,10 +77,10 @@ public abstract class AbstractStorageTest {
         R3.addSection(SectionType.PERSONAL, new TextSection("some personal info 3"));
         R3.addSection(SectionType.ACHIEVEMENT, new ListSection(Arrays.asList("1 achievement", "2 achievement 3")));
         R3.addSection(SectionType.EXPERIENCE, new OrganizationSection(Collections.singletonList(
-                new Organization("title", null,
+                new Organization("title", "https://www.google.com",
                         new Organization.Position(LocalDate.now(), LocalDate.now(), "subtitle", "description")))));
         R3.addSection(SectionType.EDUCATION, new OrganizationSection(Collections.singletonList(
-                new Organization("title", null,
+                new Organization("title", "https://www.google.com",
                         new Organization.Position(LocalDate.now(), LocalDate.now(), "subtitle", "description")))));
     }
 

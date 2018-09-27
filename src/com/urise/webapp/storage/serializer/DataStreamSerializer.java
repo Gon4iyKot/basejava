@@ -95,6 +95,7 @@ public class DataStreamSerializer implements StreamSerializer {
         return str.equals("null")?null:str;
     }
 
+    @FunctionalInterface
     private interface WriteInterface<T> {
         void write(T obj) throws IOException;
     }
@@ -106,6 +107,7 @@ public class DataStreamSerializer implements StreamSerializer {
         }
     }
 
+    @FunctionalInterface
     private interface ReadInterface<T> {
         T read() throws IOException;
     }

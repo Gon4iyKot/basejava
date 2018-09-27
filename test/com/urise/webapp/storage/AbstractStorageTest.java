@@ -43,7 +43,7 @@ public abstract class AbstractStorageTest {
         R1.addSection(SectionType.QUALIFICATIONS, new ListSection(Arrays.asList("1 qualification", "2 qualification")));
         R1.addSection(SectionType.EXPERIENCE, new OrganizationSection(Collections.singletonList(
                 new Organization("title", "https://www.google.com",
-                        new Organization.Position(LocalDate.now(), LocalDate.now(), "subtitle", "description")))));
+                        new Organization.Position(LocalDate.now(), LocalDate.now(), "subtitle", "вфафы")))));
         R1.addSection(SectionType.EDUCATION, new OrganizationSection(Collections.singletonList(
                 new Organization("title", "https://www.google.com",
                         new Organization.Position(LocalDate.now(), LocalDate.now(), "subtitle", "description")))));
@@ -81,7 +81,7 @@ public abstract class AbstractStorageTest {
                         new Organization.Position(LocalDate.now(), LocalDate.now(), "subtitle", "description")))));
         R3.addSection(SectionType.EDUCATION, new OrganizationSection(Collections.singletonList(
                 new Organization("title", "https://www.google.com",
-                        new Organization.Position(LocalDate.now(), LocalDate.now(), "subtitle", "description")))));
+                        new Organization.Position(LocalDate.now(), LocalDate.now(), "subtitle", null)))));
     }
 
     protected AbstractStorageTest(Storage storage) {

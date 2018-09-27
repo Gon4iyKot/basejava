@@ -80,7 +80,7 @@ public abstract class AbstractStorageTest {
                 new Organization("title", "https://www.google.com",
                         new Organization.Position(LocalDate.now(), LocalDate.now(), "subtitle", "description")))));
         R3.addSection(SectionType.EDUCATION, new OrganizationSection(Collections.singletonList(
-                new Organization("title", "https://www.google.com",
+                new Organization("title", null,
                         new Organization.Position(LocalDate.now(), LocalDate.now(), "subtitle", null)))));
     }
 

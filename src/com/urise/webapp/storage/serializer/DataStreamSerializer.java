@@ -39,12 +39,12 @@ public class DataStreamSerializer implements StreamSerializer {
                         writeCollection(dos, organizations, item -> {
                             Link homePage = item.getHomePage();
                             dos.writeUTF(homePage.getName());
-                            dos.writeUTF(homePage.getUrl()==null?"null":homePage.getUrl());
+                            dos.writeUTF(homePage.getUrl() == null ? "" : homePage.getUrl());
                             writeCollection(dos, item.getPositions(), item2 -> {
                                 dos.writeUTF(item2.getStartDate().toString());
                                 dos.writeUTF(item2.getEndDate().toString());
                                 dos.writeUTF(item2.getTitle());
-                                dos.writeUTF(item2.getDescription()==null?"null":item2.getDescription());
+                                dos.writeUTF(item2.getDescription() == null ? "" : item2.getDescription());
                             });
 
                         });
@@ -61,12 +61,8 @@ public class DataStreamSerializer implements StreamSerializer {
             String uuid = dis.readUTF();
             String fullname = dis.readUTF();
             Resume resume = new Resume(uuid, fullname);
-            int size = dis.readInt();
-            for (int i = 0; i < size; i++) {
-                resume.addContact(ContactType.valueOf(dis.readUTF()), dis.readUTF());
-            }
-            dis.readInt(); //костыль №1
-            while (dis.available() != 0) {
+            readCollection(dis, () -> resume.addContact(ContactType.valueOf(dis.readUTF()), dis.readUTF()));
+            readCollection(dis, () -> {
                 String sectionName = dis.readUTF();
                 switch (sectionName) {
                     case "PERSONAL":
@@ -86,13 +82,13 @@ public class DataStreamSerializer implements StreamSerializer {
                                                 LocalDate.parse(dis.readUTF()), dis.readUTF(), nullChecker(dis.readUTF())))))));
                         break;
                 }
-            }
+            });
             return resume;
         }
     }
 
-    private String nullChecker (String str) {
-        return str.equals("null")?null:str;
+    private String nullChecker(String str) {
+        return str.equals("") ? null : str;
     }
 
     @FunctionalInterface
@@ -119,5 +115,17 @@ public class DataStreamSerializer implements StreamSerializer {
             items.add(readInterface.read());
         }
         return items;
+    }
+
+    @FunctionalInterface
+    private interface ActionInterface {
+        void doAction() throws IOException;
+    }
+
+    private void readCollection(DataInputStream dis, ActionInterface actionInterface) throws IOException {
+        int size = dis.readInt();
+        for (int i = 0; i < size; i++) {
+            actionInterface.doAction();
+        }
     }
 }

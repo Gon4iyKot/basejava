@@ -76,10 +76,19 @@ public class DataStreamSerializer implements StreamSerializer {
                         break;
                     case "EXPERIENCE":
                     case "EDUCATION":
-                        resume.addSection(SectionType.valueOf(sectionName), new OrganizationSection(readList(dis, () ->
-                                new Organization(new Link(dis.readUTF(), nullChecker(dis.readUTF())), readList(dis, () ->
-                                        new Organization.Position(LocalDate.parse(dis.readUTF()),
-                                                LocalDate.parse(dis.readUTF()), dis.readUTF(), nullChecker(dis.readUTF())))))));
+                        SectionType type = SectionType.valueOf(sectionName);
+                        OrganizationSection organizationSection = new OrganizationSection(readList(dis, () -> {
+                            Link homePage = new Link(dis.readUTF(), nullChecker(dis.readUTF()));
+                            List<Organization.Position> positions = readList(dis, () -> {
+                                LocalDate startDate = LocalDate.parse(dis.readUTF());
+                                LocalDate endDate = LocalDate.parse(dis.readUTF());
+                                String title = dis.readUTF();
+                                String description = nullChecker(dis.readUTF());
+                                return new Organization.Position(startDate, endDate, title, description);
+                            });
+                            return new Organization(homePage, positions);
+                        }));
+                        resume.addSection(type, organizationSection);
                         break;
                 }
             });

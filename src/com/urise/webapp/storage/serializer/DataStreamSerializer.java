@@ -63,20 +63,20 @@ public class DataStreamSerializer implements StreamSerializer {
             Resume resume = new Resume(uuid, fullname);
             readCollection(dis, () -> resume.addContact(ContactType.valueOf(dis.readUTF()), dis.readUTF()));
             readCollection(dis, () -> {
-                String sectionName = dis.readUTF();
+                SectionType sectionName = SectionType.valueOf(dis.readUTF());
                 switch (sectionName) {
-                    case "PERSONAL":
-                    case "OBJECTIVE":
+                    case PERSONAL:
+                    case OBJECTIVE:
                         String text = dis.readUTF();
-                        resume.addSection(SectionType.valueOf(sectionName), new TextSection(text));
+                        resume.addSection(sectionName, new TextSection(text));
                         break;
-                    case "ACHIEVEMENT":
-                    case "QUALIFICATIONS":
-                        resume.addSection(SectionType.valueOf(sectionName), new ListSection(readList(dis, dis::readUTF)));
+                    case ACHIEVEMENT:
+                    case QUALIFICATIONS:
+                        resume.addSection(sectionName, new ListSection(readList(dis, dis::readUTF)));
                         break;
-                    case "EXPERIENCE":
-                    case "EDUCATION":
-                        SectionType type = SectionType.valueOf(sectionName);
+                    case EXPERIENCE:
+                    case EDUCATION:
+                        SectionType type = sectionName;
                         OrganizationSection organizationSection = new OrganizationSection(readList(dis, () -> {
                             Link homePage = new Link(dis.readUTF(), nullChecker(dis.readUTF()));
                             List<Organization.Position> positions = readList(dis, () -> {

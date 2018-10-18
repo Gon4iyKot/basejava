@@ -4,11 +4,11 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class StreamsTraining {
     public static void main(String[] args) throws IOException {
@@ -28,22 +28,13 @@ public class StreamsTraining {
     private static List<Integer> oddOrEven(List<Integer> integers) {
         AtomicInteger sum = new AtomicInteger();
         Map<Boolean, List<Integer>> someMap = integers.stream().peek(sum::addAndGet)
-                .collect(Collectors.partitioningBy((x)->x%2==0));
+                .collect(Collectors.partitioningBy((x) -> x % 2 == 0));
         System.out.println(sum.get());
-        return (sum.intValue()%2==0)? someMap.get(false): someMap.get(true);
+        return someMap.get(sum.get() % 2 == 0);
     }
 
     private static int minValue(int[] values) {
-        List<Integer> listOfInts = Arrays.stream(values).distinct().boxed()
-                .sorted(Comparator.reverseOrder()).collect(Collectors.toList());
-        int dec = 1;
-        int sum = 0;
-        for (int i : listOfInts) {
-            i *= dec;
-            sum += i;
-            dec *= 10;
-        }
-        return sum;
+        return IntStream.of(values).distinct().sorted().reduce((x, y) -> (x * 10 + y)).getAsInt();
     }
 
     private static int[] randomArray(int num) throws IOException {

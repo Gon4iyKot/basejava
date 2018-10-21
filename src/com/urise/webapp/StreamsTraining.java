@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -27,10 +26,8 @@ public class StreamsTraining {
 
     private static List<Integer> oddOrEven(List<Integer> integers) {
         AtomicInteger sum = new AtomicInteger();
-        Map<Boolean, List<Integer>> someMap = integers.stream().peek(sum::addAndGet)
-                .collect(Collectors.partitioningBy((x) -> x % 2 == 0));
-        System.out.println(sum.get());
-        return someMap.get(sum.get() % 2 == 0);
+        return integers.stream().peek(sum::addAndGet)
+                .collect(Collectors.partitioningBy((x) -> x % 2 == 0)).get(sum.get() % 2 != 0);
     }
 
     private static int minValue(int[] values) {

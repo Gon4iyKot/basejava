@@ -1,21 +1,20 @@
 package com.urise.webapp.storage;
 
+import com.urise.webapp.Config;
 import com.urise.webapp.exception.ExistStorageException;
 import com.urise.webapp.exception.NotExistStorageException;
-import com.urise.webapp.model.*;
+import com.urise.webapp.model.Resume;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
-import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
 public abstract class AbstractStorageTest {
-    protected final static File STORAGE_DIR = new File("C:\\Users\\Admin\\Documents\\GitHub\\basejava\\storage");
+    protected final static File STORAGE_DIR = Config.get().getStorageDir();
     protected Storage storage;
 
     private static final String UUID_1 = "uuid1";
@@ -29,7 +28,7 @@ public abstract class AbstractStorageTest {
     private static final Resume R4 = new Resume(UUID_4, "fullName4");
 
     static {
-        R1.addContact(ContactType.ADDRESS, "some address");
+/*        R1.addContact(ContactType.ADDRESS, "some address");
         R1.addContact(ContactType.SKYPE, "some skype");
         R1.addContact(ContactType.TELEPHONE, "some nomber");
         R1.addContact(ContactType.EMAIL, "random e-mail");
@@ -81,7 +80,7 @@ public abstract class AbstractStorageTest {
                         new Organization.Position(LocalDate.now(), LocalDate.now(), "subtitle", "description")))));
         R3.addSection(SectionType.EDUCATION, new OrganizationSection(Collections.singletonList(
                 new Organization("title", null,
-                        new Organization.Position(LocalDate.now(), LocalDate.now(), "subtitle", null)))));
+                        new Organization.Position(LocalDate.now(), LocalDate.now(), "subtitle", null)))));*/
     }
 
     protected AbstractStorageTest(Storage storage) {

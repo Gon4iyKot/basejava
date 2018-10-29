@@ -14,10 +14,10 @@ public class SqlHelper {
         this.connectionFactory = connectionFactory;
     }
 
-    public void execute(String params, VoidExecutionInterface voidExecutionInterface) {
+    public <T> T execute(String params, ExecutionInterface<T> executionInterface) {
         try (Connection connection = connectionFactory.getConnection();
              PreparedStatement ps = connection.prepareStatement(params)) {
-            voidExecutionInterface.execute(ps);
+            return executionInterface.execute(ps);
         } catch (SQLException e) {
             if (e.getSQLState().equals("23505"))
                 throw new ExistStorageException("unknown");
@@ -25,22 +25,8 @@ public class SqlHelper {
         }
     }
 
-    public <T> T executeAndReturn(String params, ExecutionInterface<T> executionInterface) {
-        try (Connection connection = connectionFactory.getConnection();
-             PreparedStatement ps = connection.prepareStatement(params)) {
-            return executionInterface.execute(ps);
-        } catch (SQLException e) {
-            throw new StorageException(e);
-        }
-    }
-
     @FunctionalInterface
     public interface ExecutionInterface<T> {
         T execute(PreparedStatement ps) throws SQLException;
-    }
-
-    @FunctionalInterface
-    public interface VoidExecutionInterface {
-        void execute(PreparedStatement ps) throws SQLException;
     }
 }

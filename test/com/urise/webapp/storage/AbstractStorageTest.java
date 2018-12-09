@@ -3,8 +3,7 @@ package com.urise.webapp.storage;
 import com.urise.webapp.Config;
 import com.urise.webapp.exception.ExistStorageException;
 import com.urise.webapp.exception.NotExistStorageException;
-import com.urise.webapp.model.ContactType;
-import com.urise.webapp.model.Resume;
+import com.urise.webapp.model.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -37,11 +36,11 @@ public abstract class AbstractStorageTest {
         R1.addContact(ContactType.LINKEDIN, "some linkedin");
         R1.addContact(ContactType.STACKOVERFLOW, "some stackoverflow");
         R1.addContact(ContactType.PERSONALPAGE, "some page");
-/*        R1.addSection(SectionType.OBJECTIVE, new TextSection("some objective"));
+        R1.addSection(SectionType.OBJECTIVE, new TextSection("some objective"));
         R1.addSection(SectionType.PERSONAL, new TextSection("some personal info"));
-        R1.addSection(SectionType.ACHIEVEMENT, new ListSection(Arrays.asList("1 achievement", "2 achievement")));
-        R1.addSection(SectionType.QUALIFICATIONS, new ListSection(Arrays.asList("1 qualification", "2 qualification")));
-        R1.addSection(SectionType.EXPERIENCE, new OrganizationSection(Collections.singletonList(
+        R1.addSection(SectionType.ACHIEVEMENT, new ListSection(Arrays.asList("some achievement", "other achievement")));
+        R1.addSection(SectionType.QUALIFICATIONS, new ListSection(Arrays.asList("some qualification", "one more qualification")));
+        /*        R1.addSection(SectionType.EXPERIENCE, new OrganizationSection(Collections.singletonList(
                 new Organization("title", "https://www.google.com",
                         new Organization.Position(LocalDate.now(), LocalDate.now(), "subtitle", "вфафы")))));
         R1.addSection(SectionType.EDUCATION, new OrganizationSection(Collections.singletonList(
@@ -55,16 +54,18 @@ public abstract class AbstractStorageTest {
         R2.addContact(ContactType.LINKEDIN, "some linkedin 2");
         R2.addContact(ContactType.STACKOVERFLOW, "some stackoverflow 2");
         R2.addContact(ContactType.PERSONALPAGE, "some page 2");
-/*        R2.addSection(SectionType.OBJECTIVE, new TextSection("some objective 2"));
+        R2.addSection(SectionType.OBJECTIVE, new TextSection("some objective 2"));
         R2.addSection(SectionType.PERSONAL, new TextSection("some personal info 2"));
         R2.addSection(SectionType.ACHIEVEMENT, new ListSection(Arrays.asList("1 achievement", "2 achievement 2")));
         R2.addSection(SectionType.QUALIFICATIONS, new ListSection(Arrays.asList("1 qualification", "2 qualification")));
+/*
         R2.addSection(SectionType.EXPERIENCE, new OrganizationSection(Collections.singletonList(
                 new Organization("title", "https://www.google.com",
                         new Organization.Position(LocalDate.now(), LocalDate.now(), "subtitle", "description")))));
         R2.addSection(SectionType.EDUCATION, new OrganizationSection(Collections.singletonList(
                 new Organization("title", "https://www.google.com",
-                        new Organization.Position(LocalDate.now(), LocalDate.now(), "subtitle", "description")))));*/
+                        new Organization.Position(LocalDate.now(), LocalDate.now(), "subtitle", "description")))));
+*/
         R3.addContact(ContactType.ADDRESS, "some address 3");
         R3.addContact(ContactType.SKYPE, "some skype 3");
         R3.addContact(ContactType.TELEPHONE, "some nomber 3");
@@ -73,15 +74,17 @@ public abstract class AbstractStorageTest {
         R3.addContact(ContactType.LINKEDIN, "some linkedin 3");
         R3.addContact(ContactType.STACKOVERFLOW, "some stackoverflow 3");
         R3.addContact(ContactType.PERSONALPAGE, "some page 3");
-/*        R3.addSection(SectionType.OBJECTIVE, new TextSection("some objective 3"));
+        R3.addSection(SectionType.OBJECTIVE, new TextSection("some objective 3"));
         R3.addSection(SectionType.PERSONAL, new TextSection("some personal info 3"));
         R3.addSection(SectionType.ACHIEVEMENT, new ListSection(Arrays.asList("1 achievement", "2 achievement 3")));
+/*
         R3.addSection(SectionType.EXPERIENCE, new OrganizationSection(Collections.singletonList(
                 new Organization("title", "https://www.google.com",
                         new Organization.Position(LocalDate.now(), LocalDate.now(), "subtitle", "description")))));
         R3.addSection(SectionType.EDUCATION, new OrganizationSection(Collections.singletonList(
                 new Organization("title", null,
-                        new Organization.Position(LocalDate.now(), LocalDate.now(), "subtitle", null)))));*/
+                        new Organization.Position(LocalDate.now(), LocalDate.now(), "subtitle", null)))));
+*/
     }
 
     protected AbstractStorageTest(Storage storage) {
@@ -110,6 +113,12 @@ public abstract class AbstractStorageTest {
     @Test
     public void update() {
         Resume resume = new Resume(UUID_1, "anyOtherFullName");
+        resume.addContact(ContactType.ADDRESS, "some address");
+        resume.addContact(ContactType.SKYPE, "some skype");
+        resume.addSection(SectionType.OBJECTIVE, new TextSection("some objective 2"));
+        resume.addSection(SectionType.PERSONAL, new TextSection("some personal info 2"));
+        resume.addSection(SectionType.ACHIEVEMENT, new ListSection(Arrays.asList("1 achievement", "2 achievement 2")));
+        resume.addSection(SectionType.QUALIFICATIONS, new ListSection(Arrays.asList("1 qualification", "2 qualification")));
         storage.update(resume);
         assertEquals(resume, storage.get(UUID_1));
     }

@@ -11,81 +11,12 @@ import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.urise.webapp.TestData.*;
 import static org.junit.Assert.assertEquals;
 
 public abstract class AbstractStorageTest {
     protected final static File STORAGE_DIR = Config.get().getStorageDir();
     protected Storage storage;
-
-    private static final String UUID_1 = "uuid1";
-    private static final String UUID_2 = "uuid2";
-    private static final String UUID_3 = "uuid3";
-    private static final String UUID_4 = "uuid4";
-
-    private static final Resume R1 = new Resume(UUID_1, "fullName1");
-    private static final Resume R2 = new Resume(UUID_2, "fullName2");
-    private static final Resume R3 = new Resume(UUID_3, "fullName3");
-    private static final Resume R4 = new Resume(UUID_4, "fullName4");
-
-    static {
-        R1.addContact(ContactType.ADDRESS, "some address");
-        R1.addContact(ContactType.SKYPE, "some skype");
-        R1.addContact(ContactType.TELEPHONE, "some nomber");
-        R1.addContact(ContactType.EMAIL, "random e-mail");
-        R1.addContact(ContactType.GITHUB, "some github");
-        R1.addContact(ContactType.LINKEDIN, "some linkedin");
-        R1.addContact(ContactType.STACKOVERFLOW, "some stackoverflow");
-        R1.addContact(ContactType.PERSONALPAGE, "some page");
-        R1.addSection(SectionType.OBJECTIVE, new TextSection("some objective"));
-        R1.addSection(SectionType.PERSONAL, new TextSection("some personal info"));
-        R1.addSection(SectionType.ACHIEVEMENT, new ListSection(Arrays.asList("some achievement", "other achievement")));
-        R1.addSection(SectionType.QUALIFICATIONS, new ListSection(Arrays.asList("some qualification", "one more qualification")));
-        /*        R1.addSection(SectionType.EXPERIENCE, new OrganizationSection(Collections.singletonList(
-                new Organization("title", "https://www.google.com",
-                        new Organization.Position(LocalDate.now(), LocalDate.now(), "subtitle", "вфафы")))));
-        R1.addSection(SectionType.EDUCATION, new OrganizationSection(Collections.singletonList(
-                new Organization("title", "https://www.google.com",
-                        new Organization.Position(LocalDate.now(), LocalDate.now(), "subtitle", "description")))));*/
-        R2.addContact(ContactType.ADDRESS, "some address 2");
-        R2.addContact(ContactType.SKYPE, "some skype 2");
-        R2.addContact(ContactType.TELEPHONE, "some nomber 2");
-        R2.addContact(ContactType.EMAIL, "random e-mail 2");
-        R2.addContact(ContactType.GITHUB, "some github 2");
-        R2.addContact(ContactType.LINKEDIN, "some linkedin 2");
-        R2.addContact(ContactType.STACKOVERFLOW, "some stackoverflow 2");
-        R2.addContact(ContactType.PERSONALPAGE, "some page 2");
-        R2.addSection(SectionType.OBJECTIVE, new TextSection("some objective 2"));
-        R2.addSection(SectionType.PERSONAL, new TextSection("some personal info 2"));
-        R2.addSection(SectionType.ACHIEVEMENT, new ListSection(Arrays.asList("1 achievement", "2 achievement 2")));
-        R2.addSection(SectionType.QUALIFICATIONS, new ListSection(Arrays.asList("1 qualification", "2 qualification")));
-/*
-        R2.addSection(SectionType.EXPERIENCE, new OrganizationSection(Collections.singletonList(
-                new Organization("title", "https://www.google.com",
-                        new Organization.Position(LocalDate.now(), LocalDate.now(), "subtitle", "description")))));
-        R2.addSection(SectionType.EDUCATION, new OrganizationSection(Collections.singletonList(
-                new Organization("title", "https://www.google.com",
-                        new Organization.Position(LocalDate.now(), LocalDate.now(), "subtitle", "description")))));
-*/
-        R3.addContact(ContactType.ADDRESS, "some address 3");
-        R3.addContact(ContactType.SKYPE, "some skype 3");
-        R3.addContact(ContactType.TELEPHONE, "some nomber 3");
-        R3.addContact(ContactType.EMAIL, "random e-mail 3");
-        R3.addContact(ContactType.GITHUB, "some github 3");
-        R3.addContact(ContactType.LINKEDIN, "some linkedin 3");
-        R3.addContact(ContactType.STACKOVERFLOW, "some stackoverflow 3");
-        R3.addContact(ContactType.PERSONALPAGE, "some page 3");
-        R3.addSection(SectionType.OBJECTIVE, new TextSection("some objective 3"));
-        R3.addSection(SectionType.PERSONAL, new TextSection("some personal info 3"));
-        R3.addSection(SectionType.ACHIEVEMENT, new ListSection(Arrays.asList("1 achievement", "2 achievement 3")));
-/*
-        R3.addSection(SectionType.EXPERIENCE, new OrganizationSection(Collections.singletonList(
-                new Organization("title", "https://www.google.com",
-                        new Organization.Position(LocalDate.now(), LocalDate.now(), "subtitle", "description")))));
-        R3.addSection(SectionType.EDUCATION, new OrganizationSection(Collections.singletonList(
-                new Organization("title", null,
-                        new Organization.Position(LocalDate.now(), LocalDate.now(), "subtitle", null)))));
-*/
-    }
 
     protected AbstractStorageTest(Storage storage) {
         this.storage = storage;

@@ -27,4 +27,4 @@ CREATE TABLE public.section
   resume_uuid varchar NOT NULL,
   CONSTRAINT section_resume_uuid_fk FOREIGN KEY (resume_uuid) REFERENCES public.resume (uuid) ON DELETE CASCADE
 );
-CREATE UNIQUE INDEX section_id_uindex ON public.section (id);
+CREATE UNIQUE INDEX section_uuid_section_type_index ON public.section (resume_uuid, section_type);

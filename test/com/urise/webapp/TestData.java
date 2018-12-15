@@ -32,10 +32,10 @@ public class TestData {
         R1.addSection(SectionType.ACHIEVEMENT, new ListSection(Arrays.asList("some achievement", "other achievement")));
         R1.addSection(SectionType.QUALIFICATIONS, new ListSection(Arrays.asList("some qualification", "one more qualification")));
                 R1.addSection(SectionType.EXPERIENCE, new OrganizationSection(Collections.singletonList(
-                new Organization("111111", "https://www.google.com",
+                new Organization("111", "https://www.google.com",
                         new Organization.Position(DateUtil.of(2016, Month.DECEMBER), DateUtil.of(2018, Month.JULY), "subtitle", "вфафы")))));
         R1.addSection(SectionType.EDUCATION, new OrganizationSection(Collections.singletonList(
-                new Organization("111111", "https://www.google.com",
+                new Organization("222", "https://www.google.com",
                         new Organization.Position(DateUtil.of(2016, Month.DECEMBER), DateUtil.of(2018, Month.JULY), "subtitle", "description")))));
         R2.addContact(ContactType.ADDRESS, "some address 2");
         R2.addContact(ContactType.SKYPE, "some skype 2");

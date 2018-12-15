@@ -64,25 +64,52 @@
                         </c:if>
                     </с:when>
                     <с:when test="${type=='EDUCATION' || type=='EXPERIENCE'}">
-                        <dt>${type.title}</dt>
-                        <c:forEach var="organisation"
-                                   items="<%=((OrganizationSection)resume.getSection(type)).getOrganizations()%>">
-                            <dd>Место: <input type="text" name="${type}" size=50
+                        <h3><dt>${type.title}</dt></h3>
+                        <c:if test="<%=resume.getSection(type)==null%>">
+                            <dt>Место:</dt>
+                            <dd><input type="text" name="${type}" size=50
+                                       value="" title="${type.title}"></dd>
+                            <dt>Ссылка:</dt>
+                            <dd><input type="text" name="${type}url" size=50
+                                       value="" title="${type.title}"></dd>
+                            <dt>Дата начала:</dt>
+                            <dd><input type="text" name="${type}startDate" size=50
+                                       value="" title="${type.title}"></dd>
+                            <dt>Дата конца:</dt>
+                            <dd><input type="text" name="${type}endDate" size=50
+                                       value="" title="${type.title}"></dd>
+                            <dt>Роль:</dt>
+                            <dd><input type="text" name="${type}title" size=50
+                                       value="" title="${type.title}"></dd>
+                            <dt>Описание:</dt>
+                            <dd><input type="text" name="${type}description" size=50
+                                       value="" title="${type.title}"></dd>
+                        </c:if>
+                        <c:if test="<%=resume.getSection(type)!=null%>">
+                        <c:forEach var="organisation" items="<%=((OrganizationSection)resume.getSection(type)).getOrganizations()%>">
+                            <dt>Место:</dt>
+                            <dd><input type="text" name="${type}" size=50
                                               value="${organisation.homePage.name}" title="${type.title}"></dd>
-                            <dd>Ссылка:<input type="text" name="${type}" size=50
+                            <dt>Ссылка:</dt>
+                            <dd><input type="text" name="${type}url" size=50
                                               value="${organisation.homePage.url}" title="${type.title}"></dd>
                             <c:forEach var="position"
                                        items="${organisation.positions}">
-                                <dd>Дата начала:<input type="text" name="${type}" size=50
+                                <dt>Дата начала:</dt>
+                                <dd><input type="text" name="${type}startDate" size=50
                                                        value="${position.startDate}" title="${type.title}"></dd>
-                                <dd>Дата конца:<input type="text" name="${type}" size=50
+                                <dt>Дата конца:</dt>
+                                <dd><input type="text" name="${type}endDate" size=50
                                                       value="${position.endDate}" title="${type.title}"></dd>
-                                <dd>Роль:<input type="text" name="${type}" size=50
+                                <dt>Роль:</dt>
+                                <dd><input type="text" name="${type}title" size=50
                                                 value="${position.title}" title="${type.title}"></dd>
-                                <dd>Роль:<input type="text" name="${type}" size=50
+                                <dt>Описание:</dt>
+                                <dd><input type="text" name="${type}description" size=50
                                                 value="${position.description}" title="${type.title}"></dd>
                             </c:forEach>
                         </c:forEach>
+                        </c:if>
                     </с:when>
                 </c:choose>
             </dl>

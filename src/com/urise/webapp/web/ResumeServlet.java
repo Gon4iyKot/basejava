@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ResumeServlet extends HttpServlet {
     private Storage storage;
@@ -26,6 +29,11 @@ public class ResumeServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         String uuid = request.getParameter("uuid");
+        String fullNameForCreation = request.getParameter("fullNameForCreation");
+        if (fullNameForCreation!=null && fullNameForCreation.trim().length() != 0) {
+            storage.save(new Resume(fullNameForCreation));
+            response.sendRedirect("resume");
+        }
         String fullName = request.getParameter("fullName");
         Resume resume = storage.get(uuid);
         resume.setFullName(fullName);
@@ -39,6 +47,7 @@ public class ResumeServlet extends HttpServlet {
         }
         for (SectionType type : SectionType.values()) {
             String value = request.getParameter(type.name());
+            String[] values = request.getParameterValues(type.name());
             if (value != null && value.trim().length() != 0) {
                 switch (type) {
                     case PERSONAL:
@@ -51,6 +60,21 @@ public class ResumeServlet extends HttpServlet {
                         break;
                     case EDUCATION:
                     case EXPERIENCE:
+                        List<Organization> organizations = new ArrayList<>();
+                        String[] url = request.getParameterValues(type.name() + "url");
+                        String[] name = request.getParameterValues(type.name());
+                        String[] startDate = request.getParameterValues(type.name() + "startDate");
+                        String[] endDate = request.getParameterValues(type.name() + "endDate");
+                        String[] title = request.getParameterValues(type.name() + "title");
+                        String[] description = request.getParameterValues(type.name() + "description");
+                        for (int i = 0; i < values.length; i++) {
+                            List<Organization.Position> positions = new ArrayList<>();
+                            for (int a = 0; a < startDate.length; a++) {
+                                positions.add(new Organization.Position(LocalDate.parse(startDate[a]), LocalDate.parse(endDate[a]), title[a], description[a]));
+                            }
+                            organizations.add(new Organization(new Link(name[i], url[i]), positions));
+                        }
+                        resume.addSection(type, new OrganizationSection(organizations));
                         break;
                 }
             } else {
@@ -59,11 +83,11 @@ public class ResumeServlet extends HttpServlet {
         }
         storage.update(resume);
         response.sendRedirect("resume");
-
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String uuid = request.getParameter("uuid");
+        String fullName = request.getParameter("fullName");
         String action = request.getParameter("action");
         if (action == null) {
             request.setAttribute("resumes", storage.getAllSorted());
@@ -72,6 +96,10 @@ public class ResumeServlet extends HttpServlet {
         }
         Resume resume;
         switch (action) {
+            case "create":
+                storage.save(new Resume(fullName));
+                response.sendRedirect("resume");
+                return;
             case "resurrect":
                 resurrection.resurrect(Config.get().getStorage());
                 response.sendRedirect("resume");

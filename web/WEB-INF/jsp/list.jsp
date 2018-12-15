@@ -12,6 +12,7 @@
 <jsp:include page="fragments/header.jsp"/>
 <section>
     <a href="resume?action=resurrect">Восстановить тестовые записи</a>
+
     <table border="1" cellpadding="8" cellspacing="0">
         <tr>
             <th>Имя</th>
@@ -30,6 +31,15 @@
             </tr>
         </с:forEach>
     </table>
+</section>
+<section>
+    <form method="post" action="resume" enctype="application/x-www-form-urlencoded">
+        <dl>
+            <dt>Для быстрого создания резюме ведите полное имя и нажмите "Создать"</dt>
+            <dd><input type="text" name="fullNameForCreation" size=50 value="" title="Полное имя"></dd>
+        </dl>
+        <button type="submit">создать</button>
+    </form>
 </section>
 <jsp:include page="fragments/footer.jsp"/>
 </body>

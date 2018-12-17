@@ -39,76 +39,74 @@
                 <c:choose>
                     <с:when test="${type=='PERSONAL' || type=='OBJECTIVE'}">
                         <dt>${type.title}</dt>
-                        <c:if test="<%=resume.getSection(type)==null%>">
-                            <dd><input type="text" name="${type}" size=50
-                                       value="" title="${type.title}"></dd>
-                        </c:if>
-                        <c:if test="<%=resume.getSection(type)!=null%>">
-                            <dd><input type="text" name="${type}" size=50
-                                       value="<%=((TextSection)resume.getSection(type)).getTextInfo()%>"
-                                       title="${type.title}"></dd>
-                        </c:if>
+                        <dd><input type="text" name="${type}" size=50
+                                   value="<%=(resume.getSection(type)==null)?"":((TextSection)resume.getSection(type)).getTextInfo()%>"
+                                   title="${type.title}"></dd>
                     </с:when>
                     <с:when test="${type=='ACHIEVEMENT' || type=='QUALIFICATIONS'}">
                         <dt>${type.title}</dt>
-                        <c:if test="<%=resume.getSection(type)==null%>">
-                            <dd><textarea name="${type}" cols="30"
-                                          rows="2" title="${type.title}"></textarea>
-                            </dd>
-                        </c:if>
-                        <c:if test="<%=resume.getSection(type)!=null%>">
-                            <dd><textarea name="${type}" cols="30"
-                                          rows="2"
-                                          title="${type.title}"><%=String.join("\n", ((ListSection) resume.getSection(type)).getItems())%></textarea>
-                            </dd>
-                        </c:if>
+                        <dd><textarea name="${type}" cols="30"
+                                      rows="2"
+                                      title="${type.title}"><%=(resume.getSection(type) == null) ? "" : String.join("\n", ((ListSection) resume.getSection(type)).getItems())%></textarea>
+                        </dd>
                     </с:when>
                     <с:when test="${type=='EDUCATION' || type=='EXPERIENCE'}">
-                        <h3><dt>${type.title}</dt></h3>
-                        <c:if test="<%=resume.getSection(type)==null%>">
-                            <dt>Место:</dt>
-                            <dd><input type="text" name="${type}" size=50
-                                       value="" title="${type.title}"></dd>
-                            <dt>Ссылка:</dt>
-                            <dd><input type="text" name="${type}url" size=50
-                                       value="" title="${type.title}"></dd>
-                            <dt>Дата начала:</dt>
-                            <dd><input type="text" name="${type}startDate" size=50
-                                       value="" title="${type.title}"></dd>
-                            <dt>Дата конца:</dt>
-                            <dd><input type="text" name="${type}endDate" size=50
-                                       value="" title="${type.title}"></dd>
-                            <dt>Роль:</dt>
-                            <dd><input type="text" name="${type}title" size=50
-                                       value="" title="${type.title}"></dd>
-                            <dt>Описание:</dt>
-                            <dd><input type="text" name="${type}description" size=50
-                                       value="" title="${type.title}"></dd>
-                        </c:if>
+                        <h3>
+                            <dt>${type.title}</dt>
+                        </h3>
+                        <dt><span style="font-size: x-large; font-weight: bold">Место:</span></dt>
+                        <dd><input type="text" name="${type}" size=50
+                                   value="" title="${type.title}"></dd>
+                        <dt>Ссылка:</dt>
+                        <dd><input type="text" name="${type}url" size=50
+                                   value="" title="${type.title}"></dd>
+                        <dt>Дата начала:</dt>
+                        <dd><input type="text" name="${type}startDate0" size=50
+                                   value="" title="${type.title}"></dd>
+                        <dt>Дата конца:</dt>
+                        <dd><input type="text" name="${type}endDate0" size=50
+                                   value="" title="${type.title}"></dd>
+                        <dt>Роль:</dt>
+                        <dd><input type="text" name="${type}title0" size=50
+                                   value="" title="${type.title}"></dd>
+                        <dt>Описание:</dt>
+                        <dd><input type="text" name="${type}description0" size=50
+                                   value="" title="${type.title}"></dd>
                         <c:if test="<%=resume.getSection(type)!=null%>">
-                        <c:forEach var="organisation" items="<%=((OrganizationSection)resume.getSection(type)).getOrganizations()%>">
-                            <dt>Место:</dt>
-                            <dd><input type="text" name="${type}" size=50
-                                              value="${organisation.homePage.name}" title="${type.title}"></dd>
-                            <dt>Ссылка:</dt>
-                            <dd><input type="text" name="${type}url" size=50
-                                              value="${organisation.homePage.url}" title="${type.title}"></dd>
-                            <c:forEach var="position"
-                                       items="${organisation.positions}">
-                                <dt>Дата начала:</dt>
-                                <dd><input type="text" name="${type}startDate" size=50
-                                                       value="${position.startDate}" title="${type.title}"></dd>
-                                <dt>Дата конца:</dt>
-                                <dd><input type="text" name="${type}endDate" size=50
-                                                      value="${position.endDate}" title="${type.title}"></dd>
-                                <dt>Роль:</dt>
-                                <dd><input type="text" name="${type}title" size=50
-                                                value="${position.title}" title="${type.title}"></dd>
-                                <dt>Описание:</dt>
-                                <dd><input type="text" name="${type}description" size=50
-                                                value="${position.description}" title="${type.title}"></dd>
+                            <c:forEach var="organisation"
+                                       items="<%=((OrganizationSection)resume.getSection(type)).getOrganizations()%>"
+                                       varStatus="count">
+                                <dt><span style="font-size: x-large; font-weight: bold">Место:</span></dt>
+                                <dd><input type="text" name="${type}" size=50
+                                           value="${organisation.homePage.name}" title="${type.title}"></dd>
+                                <dt>Ссылка:</dt>
+                                <dd><input type="text" name="${type}url" size=50
+                                           value="${organisation.homePage.url}" title="${type.title}"></dd>
+                                <c:forEach var="position"
+                                           items="${organisation.positions}">
+                                    <dt>Дата начала:</dt>
+                                    <dd><input type="text" name="${type}startDate${count.count}" size=50
+                                               value="${position.startDate}" title="${type.title}"></dd>
+                                    <dd><input type="text" name="${type}startDate${count.count}" size=50
+                                               value="" title="${type.title}"></dd>
+                                    <dt>Дата конца:</dt>
+                                    <dd><input type="text" name="${type}endDate${count.count}" size=50
+                                               value="${position.endDate}" title="${type.title}"></dd>
+                                    <dd><input type="text" name="${type}endDate${count.count}" size=50
+                                               value="" title="${type.title}"></dd>
+                                    <dt>Роль:</dt>
+                                    <dd><input type="text" name="${type}title${count.count}" size=50
+                                               value="${position.title}" title="${type.title}"></dd>
+                                    <dd><input type="text" name="${type}title${count.count}" size=50
+                                               value="" title="${type.title}"></dd>
+                                    <dt>Описание:</dt>
+                                    <dd><input type="text" name="${type}description${count.count}" size=50
+                                               value="${position.description}" title="${type.title}"></dd>
+                                    <dd><input type="text" name="${type}description${count.count}" size=50
+                                               value="" title="${type.title}"></dd>
+
+                                </c:forEach>
                             </c:forEach>
-                        </c:forEach>
                         </c:if>
                     </с:when>
                 </c:choose>

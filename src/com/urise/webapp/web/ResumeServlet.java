@@ -30,7 +30,7 @@ public class ResumeServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         String uuid = request.getParameter("uuid");
         String fullNameForCreation = request.getParameter("fullNameForCreation");
-        if (fullNameForCreation!=null && fullNameForCreation.trim().length() != 0) {
+        if (fullNameForCreation != null && fullNameForCreation.trim().length() != 0) {
             storage.save(new Resume(fullNameForCreation));
             response.sendRedirect("resume");
         }
@@ -48,7 +48,7 @@ public class ResumeServlet extends HttpServlet {
         for (SectionType type : SectionType.values()) {
             String value = request.getParameter(type.name());
             String[] values = request.getParameterValues(type.name());
-            if (value != null && value.trim().length() != 0) {
+            if (values[values.length - 1] != null && values[values.length - 1].trim().length() != 0) {
                 switch (type) {
                     case PERSONAL:
                     case OBJECTIVE:
@@ -61,15 +61,18 @@ public class ResumeServlet extends HttpServlet {
                     case EDUCATION:
                     case EXPERIENCE:
                         List<Organization> organizations = new ArrayList<>();
-                        String[] url = request.getParameterValues(type.name() + "url");
                         String[] name = request.getParameterValues(type.name());
-                        String[] startDate = request.getParameterValues(type.name() + "startDate");
-                        String[] endDate = request.getParameterValues(type.name() + "endDate");
-                        String[] title = request.getParameterValues(type.name() + "title");
-                        String[] description = request.getParameterValues(type.name() + "description");
-                        for (int i = 0; i < values.length; i++) {
+                        String[] url = request.getParameterValues(type.name() + "url");
+                        for (int i = value.equals("") ? 1 : 0; i < values.length; i++) {
                             List<Organization.Position> positions = new ArrayList<>();
+                            String[] startDate = request.getParameterValues(type.name() + "startDate" + i);
+                            String[] endDate = request.getParameterValues(type.name() + "endDate" + i);
+                            String[] title = request.getParameterValues(type.name() + "title" + i);
+                            String[] description = request.getParameterValues(type.name() + "description" + i);
                             for (int a = 0; a < startDate.length; a++) {
+                                if (startDate[a].equals("")) {
+                                    continue;
+                                }
                                 positions.add(new Organization.Position(LocalDate.parse(startDate[a]), LocalDate.parse(endDate[a]), title[a], description[a]));
                             }
                             organizations.add(new Organization(new Link(name[i], url[i]), positions));

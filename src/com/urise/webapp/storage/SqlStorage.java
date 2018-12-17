@@ -91,7 +91,7 @@ public class SqlStorage implements Storage {
                 ps.setString(1, uuid);
                 ResultSet resultSet = ps.executeQuery();
                 while (resultSet.next()) {
-                    addSection(resume, resultSet);
+                    addSection(resultSet, resume);
                 }
             }
             return resume;
@@ -138,7 +138,7 @@ public class SqlStorage implements Storage {
                 while (resultSet.next()) {
                     String resume_uuid = resultSet.getString("resume_uuid");
                     Resume resume = resumeMap.get(resume_uuid);
-                    addSection(resume, resultSet);
+                    addSection(resultSet, resume);
                 }
             }
             return new ArrayList<>(resumeMap.values());
@@ -153,7 +153,7 @@ public class SqlStorage implements Storage {
         }
     }
 
-    private void addSection(Resume resume, ResultSet resultSet) throws SQLException {
+    private void addSection(ResultSet resultSet, Resume resume) throws SQLException {
         SectionType type = SectionType.valueOf(resultSet.getString("section_type"));
         String content = resultSet.getString("content");
         resume.addSection(type, JsonParser.read(content, Section.class));

@@ -33,59 +33,60 @@ public class ResumeServlet extends HttpServlet {
         if (fullNameForCreation != null && fullNameForCreation.trim().length() != 0) {
             storage.save(new Resume(fullNameForCreation));
             response.sendRedirect("resume");
-        }
-        String fullName = request.getParameter("fullName");
-        Resume resume = storage.get(uuid);
-        resume.setFullName(fullName);
-        for (ContactType type : ContactType.values()) {
-            String value = request.getParameter(type.name());
-            if (value != null && value.trim().length() != 0) {
-                resume.addContact(type, value);
-            } else {
-                resume.getContacts().remove(type);
-            }
-        }
-        for (SectionType type : SectionType.values()) {
-            String value = request.getParameter(type.name());
-            String[] values = request.getParameterValues(type.name());
-            if (values[values.length - 1] != null && values[values.length - 1].trim().length() != 0) {
-                switch (type) {
-                    case PERSONAL:
-                    case OBJECTIVE:
-                        resume.addSection(type, new TextSection(value));
-                        break;
-                    case ACHIEVEMENT:
-                    case QUALIFICATIONS:
-                        resume.addSection(type, new ListSection(value.split("\n")));
-                        break;
-                    case EDUCATION:
-                    case EXPERIENCE:
-                        List<Organization> organizations = new ArrayList<>();
-                        String[] name = request.getParameterValues(type.name());
-                        String[] url = request.getParameterValues(type.name() + "url");
-                        for (int i = value.equals("") ? 1 : 0; i < values.length; i++) {
-                            List<Organization.Position> positions = new ArrayList<>();
-                            String[] startDate = request.getParameterValues(type.name() + "startDate" + i);
-                            String[] endDate = request.getParameterValues(type.name() + "endDate" + i);
-                            String[] title = request.getParameterValues(type.name() + "title" + i);
-                            String[] description = request.getParameterValues(type.name() + "description" + i);
-                            for (int a = 0; a < startDate.length; a++) {
-                                if (startDate[a].equals("")) {
-                                    continue;
-                                }
-                                positions.add(new Organization.Position(LocalDate.parse(startDate[a]), LocalDate.parse(endDate[a]), title[a], description[a]));
-                            }
-                            organizations.add(new Organization(new Link(name[i], url[i]), positions));
-                        }
-                        resume.addSection(type, new OrganizationSection(organizations));
-                        break;
+        } else {
+            String fullName = request.getParameter("fullName");
+            Resume resume = storage.get(uuid);
+            resume.setFullName(fullName);
+            for (ContactType type : ContactType.values()) {
+                String value = request.getParameter(type.name());
+                if (value != null && value.trim().length() != 0) {
+                    resume.addContact(type, value);
+                } else {
+                    resume.getContacts().remove(type);
                 }
-            } else {
-                resume.getSections().remove(type);
             }
+            for (SectionType type : SectionType.values()) {
+                String value = request.getParameter(type.name());
+                String[] values = request.getParameterValues(type.name());
+                if (values[values.length - 1] != null && values[values.length - 1].trim().length() != 0) {
+                    switch (type) {
+                        case PERSONAL:
+                        case OBJECTIVE:
+                            resume.addSection(type, new TextSection(value));
+                            break;
+                        case ACHIEVEMENT:
+                        case QUALIFICATIONS:
+                            resume.addSection(type, new ListSection(value.split("\n")));
+                            break;
+                        case EDUCATION:
+                        case EXPERIENCE:
+                            List<Organization> organizations = new ArrayList<>();
+                            String[] name = request.getParameterValues(type.name());
+                            String[] url = request.getParameterValues(type.name() + "url");
+                            for (int i = value.equals("") ? 1 : 0; i < values.length; i++) {
+                                List<Organization.Position> positions = new ArrayList<>();
+                                String[] startDate = request.getParameterValues(type.name() + "startDate" + i);
+                                String[] endDate = request.getParameterValues(type.name() + "endDate" + i);
+                                String[] title = request.getParameterValues(type.name() + "title" + i);
+                                String[] description = request.getParameterValues(type.name() + "description" + i);
+                                for (int a = 0; a < startDate.length; a++) {
+                                    if (startDate[a].equals("")) {
+                                        continue;
+                                    }
+                                    positions.add(new Organization.Position(LocalDate.parse(startDate[a]), LocalDate.parse(endDate[a]), title[a], description[a]));
+                                }
+                                organizations.add(new Organization(new Link(name[i], url[i]), positions));
+                            }
+                            resume.addSection(type, new OrganizationSection(organizations));
+                            break;
+                    }
+                } else {
+                    resume.getSections().remove(type);
+                }
+            }
+            storage.update(resume);
+            response.sendRedirect("resume");
         }
-        storage.update(resume);
-        response.sendRedirect("resume");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
